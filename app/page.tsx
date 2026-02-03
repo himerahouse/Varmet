@@ -1,65 +1,118 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect } from "react";
+import heroImage from "./assets/Images/hero2.jpg";
+import { FeatureStrip } from "./components/FeatureStrip";
+
+export default function HomePage() {
+  // ✅ Disable scrolling on desktop only
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const apply = () => {
+      if (mq.matches) {
+        document.documentElement.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
+        document.documentElement.style.height = "100vh";
+        document.body.style.height = "100vh";
+      } else {
+        document.documentElement.style.overflow = "";
+        document.body.style.overflow = "";
+        document.documentElement.style.height = "";
+        document.body.style.height = "";
+      }
+    };
+
+    apply();
+    mq.addEventListener("change", apply);
+    return () => {
+      mq.removeEventListener("change", apply);
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+      document.documentElement.style.height = "";
+      document.body.style.height = "";
+    };
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="bg-black">
+      {/* HERO: 100vh */}
+      <section className="relative h-[100vh] w-full overflow-auto lg:overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0">
+          <Image
+            src={heroImage}
+            alt="Industrial facility"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 [background:radial-gradient(900px_circle_at_20%_20%,rgba(255,255,255,0.10),transparent_55%)]" />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Content */}
+        <div className="relative z-10 mx-auto h-full max-w-7xl px-4 sm:px-6">
+          {/* Use grid so we can reserve space for the fixed footer on desktop */}
+          <div className="grid h-full grid-rows-[auto_auto_1fr]">
+            {/* Top text */}
+            <div className="pt-10 sm:pt-14 md:pt-16">
+              <div className="max-w-2xl text-white">
+                <span className="mb-4 inline-block text-xs font-semibold tracking-[0.25em] text-white/70 sm:text-sm">
+                  WELCOME TO VARMET
+                </span>
+
+                <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+                  Environmental
+                  <br />
+                  Solutions
+                </h1>
+
+                <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base md:text-lg">
+                  We specialize in delivering innovative, high-quality products
+                  and services tailored to the needs of businesses across various
+                  sectors. At VARMET, we are committed to excellence,
+                  sustainability, and customer satisfaction.
+                </p>
+
+                <div className="mt-7 sm:mt-9">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-4
+                      text-sm font-semibold text-black transition-all duration-300
+                      hover:bg-white/90 hover:-translate-y-[1px]
+                      hover:shadow-[0_18px_35px_rgba(0,0,0,0.35)]
+                      sm:px-9 sm:py-5 sm:text-base"
+                  >
+                    Contact us
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Card (closer to text on desktop) */}
+            <div className="mt-10 lg:mt-8 lg:translate-y-20">
+              <FeatureStrip />
+            </div>
+
+            {/* Spacer to push content without mt-auto hacks */}
+            <div />
+          </div>
         </div>
-      </main>
-    </div>
+
+        {/* ✅ Fixed footer bar (desktop only) */}
+        <div className="hidden lg:block fixed inset-x-0 bottom-0 z-50 bg-black/90 backdrop-blur-sm">
+          <div className="mx-auto max-w-7xl px-6 py-5">
+            <p className="text-center text-sm text-white/70">
+              © {new Date().getFullYear()} Varmet. All rights reserved.
+            </p>
+          </div>
+        </div>
+
+        {/* ✅ Reserve footer height so card never overlaps it (desktop only) */}
+        <div className="hidden lg:block h-[64px]" />
+      </section>
+    </main>
   );
 }
