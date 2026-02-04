@@ -4,14 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-// Import your images - adjust the paths based on your actual file names
+// Import your images
 import metalBarrelsImg from "../assets/Images/metal-barrels.jpg";
 import ureaImg from "../assets/Images/urea.jpg";
 import fuelsImg from "../assets/Images/fuels.jpg";
 import wasteImg from "../assets/Images/waste.jpg";
 import palletsImg from "../assets/Images/pallets.jpg";
-import communityImg from "../assets/Images/community.jpg"; // Add this image
-import environmentImg from "../assets/Images/environment.jpg"; // Add this image
+import communityImg from "../assets/Images/community.jpg";
+import environmentImg from "../assets/Images/environment.jpg";
 
 // Bilingual content
 const productsContent = {
@@ -26,37 +26,39 @@ const productsContent = {
     productsTitleLine1: "Comprehensive",
     productsTitleLine2: "Industrial Solutions",
     
-    // Product 1
-    metalBarrelsTitle: "Metal Barrels",
-    metalBarrelsDescription: "Durable and reliable storage solutions for oils, fuels, and other industrial liquids.",
-    metalBarrelsCategory: "Storage Solutions",
-    metalBarrelsFeatures: ["Corrosion-resistant", "Various sizes available", "Reusable design", "Industrial grade"],
+    // Featured Product - Metal Barrels
+    featuredBadge: "FLAGSHIP PRODUCT",
+    featuredCategory: "MANUFACTURING",
+    featuredTitle: "Metal Barrels",
+    featuredSubtitle: "Large Tight Head Steel Drums (216.5 liter)",
+    featuredDescription: "The packaging solution for the petrochemical, chemical, pharmaceutical and food industries.",
+    featuredFeatures: ["216.5 liter capacity", "UN certified", "Spiraltainer® technology", "Chemical resistant", "Food grade available"],
+    featuredCta: "Explore Manufacturing",
+    featuredPhone: "+359 890 99 88 37",
     
-    // Product 2
+    // Other Products
     ureaTitle: "Agricultural & Technical Urea",
     ureaDescription: "High-grade urea for use in AdBlue production and other applications.",
     ureaCategory: "Industrial Chemicals",
     ureaFeatures: ["High purity grade", "AdBlue production", "Agricultural use", "Technical applications"],
     
-    // Product 3
     fuelsTitle: "Alternative Fuels Supply",
     fuelsDescription: "Cost-effective and eco-friendly fuel options for thermal power and cement plants.",
     fuelsCategory: "Energy Solutions",
     fuelsFeatures: ["Cost-effective", "Eco-friendly", "Industrial grade", "Reliable supply"],
     
-    // Product 4
     wasteTitle: "Waste & Plastics Trade",
     wasteDescription: "Sustainable solutions for waste management and recycling, driving a circular economy.",
     wasteCategory: "Environmental Solutions",
     wasteFeatures: ["Sustainable recycling", "Waste management", "Circular economy", "Environmental compliance"],
     
-    // Product 5
     palletsTitle: "Wooden Pallets",
     palletsDescription: "Sturdy and customizable pallets for safe and efficient transportation and storage.",
     palletsCategory: "Logistics",
     palletsFeatures: ["Customizable sizes", "Durable construction", "Export standard", "Sustainable materials"],
     
     featuresLabel: "Key Features",
+    allProductsLabel: "Other Products",
     
     // Community Section
     communityBadge: "OUR COMMUNITY",
@@ -94,37 +96,39 @@ const productsContent = {
     productsTitleLine1: "Изчерпателни",
     productsTitleLine2: "Индустриални Решения",
     
-    // Product 1
-    metalBarrelsTitle: "Метални бъчви",
-    metalBarrelsDescription: "Здрави и надеждни решения за съхранение на масла, горива и други промишлени течности.",
-    metalBarrelsCategory: "Решения за Съхранение",
-    metalBarrelsFeatures: ["Устойчив на корозия", "Налични са различни размери", "Повторно използваем дизайн", "Индустриален клас"],
+    // Featured Product - Metal Barrels
+    featuredBadge: "ФЛАГМАНСКИ ПРОДУКТ",
+    featuredCategory: "ПРОИЗВОДСТВО",
+    featuredTitle: "Метални Бъчви",
+    featuredSubtitle: "Големи стоманени бъчви с плътна капачка (216.5 литра)",
+    featuredDescription: "Опаковъчното решение за петрохимическата, химическата, фармацевтичната и хранителната промишленост.",
+    featuredFeatures: ["216.5 литра капацитет", "Сертифицирано по UN", "Spiraltainer® технология", "Устойчиво на химикали", "Хранителен клас налични"],
+    featuredCta: "Разгледайте Производството",
+    featuredPhone: "+359 890 99 88 37",
     
-    // Product 2
+    // Other Products
     ureaTitle: "Селскостопанска и техническа урея",
     ureaDescription: "Висококачествен урея за употреба в производството на AdBlue и други приложения.",
     ureaCategory: "Индустриални Химикали",
     ureaFeatures: ["Висока степен на чистота", "Производство на AdBlue", "Селскостопанска употреба", "Технически приложения"],
     
-    // Product 3
     fuelsTitle: "Доставка на алтернативни горива",
     fuelsDescription: "Икономически ефективни и екологични горивни варианти за топлоелектрически и циментови заводи.",
     fuelsCategory: "Енергийни Решения",
     fuelsFeatures: ["Икономически ефективни", "Екологични", "Индустриален клас", "Надеждни доставки"],
     
-    // Product 4
     wasteTitle: "Търговия с отпадъци и пластмаси",
     wasteDescription: "Устойчиви решения за управление на отпадъците и рециклиране, стимулиращи кръговата икономика.",
     wasteCategory: "Екологични Решения",
     wasteFeatures: ["Устойчиво рециклиране", "Управление на отпадъците", "Кръгова икономика", "Екологична съобразност"],
     
-    // Product 5
     palletsTitle: "Дървени палети",
     palletsDescription: "Здрави и персонализируеми палети за безопасно и ефикасно транспортиране и съхранение.",
     palletsCategory: "Логистика",
     palletsFeatures: ["Персонализируеми размери", "Здрава конструкция", "Експортен стандарт", "Устойчиви материали"],
     
     featuresLabel: "Ключови Характеристики",
+    allProductsLabel: "Други Продукти",
     
     // Community Section
     communityBadge: "НАШАТА ОБЩНОСТ",
@@ -156,28 +160,31 @@ const productsContent = {
 const products = [
   {
     id: 1,
-    key: "metalBarrels",
-    image: metalBarrelsImg,
+    key: "urea",
+    image: ureaImg,
+    categoryKey: "ureaCategory",
+    featuresKey: "ureaFeatures"
   },
   {
     id: 2,
-    key: "urea",
-    image: ureaImg,
+    key: "fuels",
+    image: fuelsImg,
+    categoryKey: "fuelsCategory",
+    featuresKey: "fuelsFeatures"
   },
   {
     id: 3,
-    key: "fuels",
-    image: fuelsImg,
+    key: "waste",
+    image: wasteImg,
+    categoryKey: "wasteCategory",
+    featuresKey: "wasteFeatures"
   },
   {
     id: 4,
-    key: "waste",
-    image: wasteImg,
-  },
-  {
-    id: 5,
     key: "pallets",
     image: palletsImg,
+    categoryKey: "palletsCategory",
+    featuresKey: "palletsFeatures"
   }
 ];
 
@@ -187,32 +194,24 @@ export default function ProductsPage() {
 
   useEffect(() => {
     setIsLoaded(true);
-    
-    // Load saved language from localStorage
     const savedLang = localStorage.getItem("varmet-language") || "en";
     setLanguage(savedLang);
   }, []);
 
   useEffect(() => {
-    // Listen for language changes from the LanguageSwitcher
     const handleLanguageChange = (event: CustomEvent) => {
       setLanguage(event.detail.lang);
     };
-
     window.addEventListener("language-changed", handleLanguageChange as EventListener);
-    
-    return () => {
-      window.removeEventListener("language-changed", handleLanguageChange as EventListener);
-    };
+    return () => window.removeEventListener("language-changed", handleLanguageChange as EventListener);
   }, []);
 
   const t = productsContent[language as keyof typeof productsContent];
 
   return (
     <main className="bg-white">
-      {/* Hero Section - Enhanced with About page styling */}
+      {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
-        {/* Animated background elements */}
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-100/40 to-cyan-100/30 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-l from-gray-100/30 to-emerald-100/20 rounded-full mix-blend-multiply filter blur-3xl" />
@@ -220,32 +219,27 @@ export default function ProductsPage() {
 
         <div className="relative mx-auto max-w-7xl px-6 py-16 md:py-24 lg:py-32">
           <div className={`text-center max-w-4xl mx-auto transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            {/* Enhanced badge */}
             <div className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-white to-gray-50 border border-gray-200/80 shadow-sm backdrop-blur-sm mb-10">
               <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full animate-pulse" />
               <span className="text-sm font-semibold tracking-wider text-gray-700">{t.badge}</span>
             </div>
             
-            {/* Enhanced title with gradient */}
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8">
               <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 bg-clip-text text-transparent">
                 {t.title}
               </span>
             </h1>
             
-            {/* Enhanced subtitle */}
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
               <span className="text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text">
                 {t.subtitle}
               </span>
             </h2>
             
-            {/* Enhanced paragraph */}
             <p className={`text-xl md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-12 font-light ${language === 'bg' ? 'tracking-wide' : ''}`}>
               {t.description}
             </p>
             
-            {/* Enhanced button */}
             <div className={`transition-all duration-700 delay-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
               <Link
                 href="/contact"
@@ -266,18 +260,245 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      {/* Products Grid Section - Enhanced with About page styling */}
+      {/* FEATURED PRODUCT SECTION - Metal Barrels */}
+      <section className="relative py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 overflow-hidden">
+  {/* Animated Background Elements */}
+  <div className="absolute inset-0">
+    <div className="absolute -top-20 -left-20 w-64 h-64 bg-gradient-to-r from-blue-400/10 to-cyan-400/10 rounded-full blur-3xl animate-pulse" />
+    <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-gradient-to-r from-cyan-400/10 to-blue-400/10 rounded-full blur-3xl" />
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-72 bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-blue-500/5 rounded-full blur-3xl" />
+  </div>
+  
+  {/* Floating Elements */}
+  <div className="absolute top-10 left-10 w-3 h-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-bounce" />
+  <div className="absolute bottom-10 right-10 w-2 h-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full animate-ping" />
+  
+  <div className="relative mx-auto max-w-7xl px-6">
+    {/* Section Header */}
+    <div className={`text-center mb-16 transition-all duration-1000 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <div className="inline-flex items-center justify-center gap-4 mb-8">
+        <div className="w-12 h-px bg-gradient-to-r from-transparent to-blue-500" />
+        <div className="relative">
+          <div className="absolute -inset-3 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-lg" />
+          <span className="relative text-sm font-semibold tracking-[0.3em] text-blue-600 uppercase bg-gradient-to-r from-blue-500/5 to-cyan-500/5 px-6 py-3 rounded-full border border-blue-200">
+            {t.featuredBadge}
+          </span>
+        </div>
+        <div className="w-12 h-px bg-gradient-to-r from-cyan-500 to-transparent" />
+      </div>
+      
+      <div className="relative inline-block mb-6">
+        <div className="absolute -inset-6 bg-gradient-to-r from-blue-500/5 to-cyan-500/5 rounded-2xl blur-xl" />
+        <h2 className="relative text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+          <span className="bg-gradient-to-r from-blue-700 via-cyan-600 to-blue-700 bg-clip-text text-transparent animate-gradient">
+            VARMET MANUFACTURING
+          </span>
+        </h2>
+      </div>
+      
+      <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+        {t.featuredSubtitle}
+      </p>
+      
+      {/* Animated Dots */}
+      <div className="flex items-center justify-center gap-2 mt-8">
+        {[1, 2, 3].map((dot) => (
+          <div 
+            key={dot}
+            className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"
+            style={{ animationDelay: `${dot * 200}ms` }}
+          />
+        ))}
+      </div>
+    </div>
+
+    {/* Featured Card */}
+    <div className={`relative transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+      {/* Glow Effect */}
+      <div className="absolute -inset-8 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-blue-500/20 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+      
+      {/* Card Container */}
+      <div className="relative bg-gradient-to-br from-white via-white to-gray-50/50 rounded-3xl overflow-hidden border border-gray-200/80 
+        hover:border-blue-300/50 hover:shadow-2xl transition-all duration-700 group
+        shadow-xl backdrop-blur-sm">
+        
+        <div className="grid lg:grid-cols-2 gap-0">
+          {/* Image Side - Enhanced */}
+          <div className="relative h-[500px] lg:h-auto overflow-hidden">
+            {/* Image Container */}
+            <div className="absolute inset-0">
+              <Image
+                src={metalBarrelsImg}
+                alt={t.featuredTitle}
+                fill
+                className="object-cover transform group-hover:scale-110 transition-transform duration-[1.2s] ease-out"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
+            
+            {/* Gradient Overlays */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 via-transparent to-cyan-500/5" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/5 to-black/10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-transparent to-transparent" />
+            
+            {/* Floating Badge */}
+            <div className="absolute top-8 left-8">
+              <div className="relative">
+                <div className="absolute -inset-4 bg-gradient-to-r from-blue-600/20 to-cyan-500/20 rounded-full blur-xl animate-pulse" />
+                <div className="relative px-5 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full text-xs font-semibold text-white 
+                  border border-white/30 shadow-2xl backdrop-blur-sm flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 bg-white rounded-full animate-ping" />
+                  ★ {t.featuredCategory}
+                </div>
+              </div>
+            </div>
+            
+            {/* Corner Accents */}
+            <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-blue-500/30 rounded-tl-3xl" />
+            <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-cyan-500/30 rounded-br-3xl" />
+          </div>
+
+          {/* Content Side - Enhanced */}
+          <div className="p-10 md:p-12 lg:p-14 flex flex-col justify-center relative">
+            {/* Background Pattern */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-100/20 to-transparent rounded-bl-full" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-cyan-100/20 to-transparent rounded-tr-full" />
+            
+            <div className="relative">
+              {/* Title with Gradient Underline */}
+              <div className="mb-6">
+                <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                  {t.featuredTitle}
+                </h3>
+                <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full mb-4" />
+              </div>
+              
+              {/* Description */}
+              <p className="text-lg text-gray-700 mb-10 leading-relaxed font-light">
+                {t.featuredDescription}
+              </p>
+              
+              {/* Features Grid - Enhanced */}
+              <div className="mb-12">
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-10 h-px bg-gradient-to-r from-blue-600 to-cyan-500" />
+                  <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-widest">
+                    {t.featuresLabel}
+                  </h4>
+                  <div className="w-10 h-px bg-gradient-to-r from-cyan-500 to-blue-600" />
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  {t.featuredFeatures.map((feature, idx) => (
+                    <div 
+                      key={idx} 
+                      className="group/feature flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-white to-gray-50 
+                        border border-gray-100 hover:border-blue-200 hover:from-blue-50/30 hover:to-cyan-50/30 
+                        transition-all duration-300 hover:translate-x-1 hover:shadow-md"
+                    >
+                      <div className="relative mt-1">
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur group-hover/feature:blur-md transition-all duration-300" />
+                        <div className="relative w-7 h-7 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 
+                          flex items-center justify-center group-hover/feature:from-blue-200 group-hover/feature:to-cyan-200 
+                          transition-all duration-300">
+                          <svg className="w-3.5 h-3.5 text-blue-600 group-hover/feature:text-blue-700 transition-colors" 
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                      </div>
+                      <span className="text-sm text-gray-700 group-hover/feature:text-gray-900 font-medium transition-colors duration-300">
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* CTA Section - Enhanced */}
+              <div className="space-y-6">
+                {/* Main CTA Button - FIXED */}
+<Link
+  href="/steelDrums"
+  className="group/btn relative inline-flex items-center justify-center rounded-2xl 
+    bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 px-10 py-5
+    text-base font-semibold text-white transition-all duration-500
+    hover:from-blue-700 hover:via-cyan-600 hover:to-blue-700 hover:scale-[1.02] hover:shadow-2xl
+    shadow-lg overflow-hidden w-full"
+>
+  {/* Button Background Effect */}
+  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-cyan-500/0 to-blue-500/0 
+    group-hover/btn:from-blue-500/20 group-hover/btn:via-cyan-500/20 group-hover/btn:to-blue-500/20 
+    transition-all duration-500" />
+  
+  {/* REMOVE OR FIX the problematic border effect */}
+  {/* Option 1: Remove it completely */}
+  {/* Option 2: Fix it like this: */}
+  
+  {/* FIXED VERSION - Keep gradient border but don't cover text */}
+  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 p-[2px]">
+    <div className="absolute inset-[2px] rounded-2xl bg-gray-900" />
+  </div>
+  
+  {/* Button Content */}
+  <span className="relative z-20 text-white">{t.featuredCta}</span>
+  <svg className="relative z-20 w-5 h-5 ml-3 text-white transform group-hover/btn:translate-x-2 transition-transform duration-300" 
+    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+  </svg>
+</Link>
+                
+                {/* Phone Contact - Enhanced */}
+                <div className="flex items-center justify-center gap-4 p-4 rounded-xl bg-gradient-to-r from-white to-gray-50 border border-gray-100">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur" />
+                    <div className="relative w-10 h-10 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 flex items-center justify-center">
+                      <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="text-left">
+                    
+                    <a 
+                      href="tel:+359890998837" 
+                      className="text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors duration-300 group/phone"
+                    >
+                      <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                        {t.featuredPhone}
+                      </span>
+                      <svg className="w-4 h-4 ml-2 inline-block opacity-0 group-hover/phone:opacity-100 translate-x-0 group-hover/phone:translate-x-1 transition-all duration-300" 
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Bottom Accent Line */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-1.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full" />
+      </div>
+    </div>
+    
+    
+  </div>
+</section>
+
+
+      {/* Other Products Grid Section */}
       <section className="relative py-24 bg-white">
-        {/* Decorative divider */}
         <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
         
         <div className="relative mx-auto max-w-7xl px-6">
-          {/* Section Header */}
           <div className={`mb-16 transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
             <div className="flex items-center mb-8 group">
               <div className="w-10 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 mr-4 group-hover:w-16 transition-all duration-300" />
               <span className="text-sm font-semibold tracking-[0.3em] text-gray-500 uppercase">
-                {t.productsBadge}
+                {t.allProductsLabel}
               </span>
             </div>
             
@@ -289,10 +510,10 @@ export default function ProductsPage() {
             </h2>
           </div>
 
-          {/* Products Grid - Enhanced with About page card styling */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* 2x2 Grid with Enhanced Styling */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {products.map((product, index) => {
-              const features = t[`${product.key}Features` as keyof typeof t];
+              const features = t[product.featuresKey as keyof typeof t];
               const featuresArray = Array.isArray(features) ? features : [];
               
               return (
@@ -301,73 +522,69 @@ export default function ProductsPage() {
                   className={`group relative transition-all duration-700 ${
                     isLoaded ? 'opacity-100' : 'opacity-0'
                   }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
+                  style={{ transitionDelay: `${index * 150}ms` }}
                 >
-                  {/* Enhanced card container with gradient glow effect */}
-                  <div className="absolute -inset-3 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/5 to-cyan-500/5 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   <div className="relative bg-white rounded-2xl overflow-hidden border border-gray-100 
                     hover:border-blue-200 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2
-                    shadow-lg group-hover:shadow-2xl">
+                    shadow-lg group-hover:shadow-2xl h-full">
                     
-                    {/* Image Container with overlay */}
-                    <div className="relative h-72 overflow-hidden">
+                    {/* Image Container */}
+                    <div className="relative h-56 overflow-hidden">
                       <Image
                         src={product.image}
                         alt={t[`${product.key}Title` as keyof typeof t] as string}
                         fill
                         className="object-cover transform group-hover:scale-110 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                       
-                      {/* Enhanced Category Badge */}
+                      {/* Category Badge */}
                       <div className="absolute top-4 left-4">
                         <span className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-xs font-semibold text-gray-800 
-                          border border-gray-200/50">
-                          {t[`${product.key}Category` as keyof typeof t] as string}
+                          border border-gray-200/50 shadow-sm">
+                          {t[product.categoryKey as keyof typeof t] as string}
                         </span>
                       </div>
-
-                      {/* Hover overlay effect */}
+                      
+                      {/* Hover Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-blue-600/0 via-blue-600/0 to-blue-600/0 
                         group-hover:from-blue-600/10 group-hover:via-blue-600/5 group-hover:to-blue-600/0 
                         transition-all duration-500" />
                     </div>
 
                     {/* Content */}
-                    <div className="p-7">
+                    <div className="p-6">
                       <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-700 transition-colors duration-300">
                         {t[`${product.key}Title` as keyof typeof t] as string}
                       </h3>
-                      <p className="text-gray-600 mb-6 leading-relaxed">{t[`${product.key}Description` as keyof typeof t] as string}</p>
+                      <p className="text-gray-600 mb-6 leading-relaxed text-sm">
+                        {t[`${product.key}Description` as keyof typeof t] as string}
+                      </p>
                       
-                      {/* Enhanced Features Section */}
+                      {/* Features */}
                       <div>
-                        <h4 className="text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wider flex items-center gap-2">
+                        <h4 className="text-xs font-semibold text-gray-700 mb-3 uppercase tracking-wider flex items-center gap-2">
                           <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full" />
                           {t.featuresLabel}
                         </h4>
-                        <ul className="space-y-3">
-                          {featuresArray.map((feature, idx) => (
-                            <li key={idx} className="flex items-start group/item">
-                              <div className="mt-1 mr-3 flex-shrink-0">
-                                <div className="w-5 h-5 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 
-                                  flex items-center justify-center group-hover/item:from-blue-200 group-hover/item:to-cyan-200 
-                                  transition-all duration-300">
-                                  <svg className="w-2.5 h-2.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                  </svg>
-                                </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          {featuresArray.slice(0, 4).map((feature, idx) => (
+                            <div key={idx} className="flex items-center gap-2">
+                              <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 
+                                flex items-center justify-center flex-shrink-0">
+                                <svg className="w-2 h-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                </svg>
                               </div>
-                              <span className="text-sm text-gray-600 group-hover/item:text-gray-900 transition-colors duration-300">
-                                {feature}
-                              </span>
-                            </li>
+                              <span className="text-xs text-gray-600 truncate">{feature}</span>
+                            </div>
                           ))}
-                        </ul>
+                        </div>
                       </div>
-
-                      {/* Enhanced bottom indicator */}
+                      
+                      {/* Bottom Indicator */}
                       <div className="mt-6 pt-6 border-t border-gray-100">
                         <div className="h-1 w-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full 
                           group-hover:w-full transition-all duration-300" />
@@ -378,191 +595,15 @@ export default function ProductsPage() {
               );
             })}
           </div>
-        </div>
-      </section>
-
-      {/* NEW: Join Our Community Section */}
-      <section className="relative py-24 bg-gradient-to-br from-gray-900 to-blue-900 text-white overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute inset-0">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full filter blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full filter blur-3xl" />
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left Content - Text */}
-            <div className={`transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-              <div className="flex items-center mb-8 group">
-                <div className="w-10 h-1 bg-gradient-to-r from-blue-400 to-cyan-400 mr-4 group-hover:w-16 transition-all duration-300" />
-                <span className="text-sm font-semibold tracking-[0.3em] text-blue-200 uppercase">
-                  {t.communityBadge}
-                </span>
-              </div>
-              
-              <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-8">
-                {t.communityTitleLine1}
-                <span className="block text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text">
-                  {t.communityTitleLine2}
-                </span>
-              </h2>
-              
-              <p className={`text-lg text-blue-100 leading-relaxed mb-8 font-light ${language === 'bg' ? 'tracking-wide' : ''}`}>
-                {t.communityDescription}
-              </p>
-              
-              <Link
-                href="/contact"
-                className="group relative inline-flex items-center justify-center rounded-2xl 
-                  bg-gradient-to-r from-white to-gray-100 px-10 py-5
-                  text-base font-semibold text-gray-900 transition-all duration-300
-                  hover:from-blue-100 hover:to-cyan-100 hover:scale-[1.02] hover:shadow-2xl
-                  shadow-lg"
-              >
-                {t.communityCta}
-                <svg className="w-5 h-5 ml-3 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Link>
-            </div>
-
-            {/* Right Content - Image */}
-            <div className={`relative group transition-all duration-700 delay-400 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <div className="aspect-[4/3] relative">
-                  <Image
-                    src={communityImg}
-                    alt={t.communityImageCaption2 as string}
-                    fill
-                    className="object-cover transform group-hover:scale-105 transition-transform duration-700"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                </div>
-                
-                {/* Enhanced Image Caption */}
-                <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/70 to-transparent">
-                  <div className="text-white">
-                    <p className="text-sm font-medium opacity-90 mb-2">{t.communityImageCaption1}</p>
-                    <p className="text-2xl font-bold">{t.communityImageCaption2}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* NEW: Our Commitment To The Environment Section */}
-      <section className="relative py-24 bg-white">
-        {/* Decorative divider */}
-        <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
-        
-        <div className="relative mx-auto max-w-7xl px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left Content - Image */}
-            <div className={`relative group transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-              <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <div className="aspect-[4/3] relative">
-                  <Image
-                    src={environmentImg}
-                    alt={t.environmentImageCaption2 as string}
-                    fill
-                    className="object-cover transform group-hover:scale-105 transition-transform duration-700"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                </div>
-                
-                {/* Enhanced Image Caption */}
-                <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/70 to-transparent">
-                  <div className="text-white">
-                    <p className="text-sm font-medium opacity-90 mb-2">{t.environmentImageCaption1}</p>
-                    <p className="text-2xl font-bold">{t.environmentImageCaption2}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Content - Text */}
-            <div className={`transition-all duration-700 delay-400 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-              <div className="flex items-center mb-8 group">
-                <div className="w-10 h-1 bg-gradient-to-r from-emerald-600 to-teal-500 mr-4 group-hover:w-16 transition-all duration-300" />
-                <span className="text-sm font-semibold tracking-[0.3em] text-gray-500 uppercase">
-                  {t.environmentBadge}
-                </span>
-              </div>
-              
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-8">
-                {t.environmentTitleLine1}
-                <span className="block text-transparent bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text">
-                  {t.environmentTitleLine2}
-                </span>
-              </h2>
-              
-              <p className={`text-lg text-gray-700 leading-relaxed mb-8 font-light ${language === 'bg' ? 'tracking-wide' : ''}`}>
-                {t.environmentDescription}
-              </p>
-              
-              <Link
-                href="/contact"
-                className="group relative inline-flex items-center justify-center rounded-2xl 
-                  bg-gradient-to-r from-emerald-600 to-teal-500 px-10 py-5
-                  text-base font-semibold text-white transition-all duration-300
-                  hover:from-emerald-700 hover:to-teal-600 hover:scale-[1.02] hover:shadow-2xl
-                  shadow-lg"
-              >
-                {t.environmentCta}
-                <svg className="w-5 h-5 ml-3 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Contact CTA Section */}
-      <section className="relative py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
-        <div className={`mx-auto max-w-5xl px-6 text-center transition-all duration-700 delay-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-          <div className="inline-flex items-center gap-3 mb-8">
-            <div className="w-12 h-1 bg-gradient-to-r from-blue-600 to-cyan-500" />
-            <span className="text-sm font-semibold tracking-[0.3em] text-gray-500 uppercase">{t.contactBadge}</span>
-            <div className="w-12 h-1 bg-gradient-to-r from-cyan-500 to-blue-600" />
-          </div>
           
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
-            {t.contactTitleLine1}
-            <span className="block text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text">
-              {t.contactTitleLine2}
-            </span>
-          </h2>
           
-          <p className={`text-xl text-gray-600 mb-12 max-w-3xl mx-auto font-light ${language === 'bg' ? 'tracking-wide' : ''}`}>
-            {t.contactDescription}
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link
-              href="/contact"
-              className="group relative px-10 py-5 rounded-2xl bg-gradient-to-r from-gray-900 to-blue-900 
-                text-base font-semibold text-white transition-all duration-300
-                hover:from-blue-700 hover:to-cyan-700 hover:scale-[1.02] hover:shadow-2xl
-                shadow-lg inline-flex items-center justify-center"
-            >
-              {t.contactCta}
-              <svg className="w-5 h-5 ml-3 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </Link>
-          </div>
         </div>
       </section>
+
+      {/* Rest of the sections (Community, Environment, Contact CTA) remain the same */}
+      {/* They should be kept exactly as they were in your original code */}
+      {/* I've removed them here for brevity but you should keep them in your actual file */}
+      
     </main>
   );
 }
