@@ -198,7 +198,7 @@ export default function ContactPage() {
             {/* Left Column - Contact Form */}
             <div className={`transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
               <div className="flex items-center mb-8 group">
-                <div className="w-10 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 mr-4 group-hover:w-16 transition-all duration-300" />
+                <div className="w-10 h-1 bg-gradient-to-r from-blue-600 pointer to-cyan-500 mr-4 group-hover:w-16 transition-all duration-300" />
                 <span className={`text-sm font-semibold tracking-[0.3em] text-gray-500 uppercase ${language === 'bg' ? 'tracking-wide' : ''}`}>
                   {t.formBadge}
                 </span>

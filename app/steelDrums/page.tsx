@@ -1,83 +1,325 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Shield, Factory, Package, Globe, Paintbrush, CheckCircle, Award, Users, Phone, Mail, MapPin, ChevronRight } from "lucide-react";
-import Image from "next/image";
+import { Shield, Factory, Package, Globe, Paintbrush, CheckCircle, Award, Users, Phone, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-// You'll need to add these images to your assets folder
-import steelDrumsHero from "../assets/Images/steel-drums-hero.jpg";
-import factoryProduction from "../assets/Images/factory-production.jpg";
-import drumsStacked from "../assets/Images/drums-stacked.jpg";
+// Bilingual content
+const steelDrumsContent = {
+  en: {
+    // Hero Section
+    badge: "VARMET MANUFACTURING",
+    title: "Steel Drums",
+    subtitle: "Large Tight Head Steel Drums (216,5 liter)",
+    description: "The packaging solution for the petrochemical, chemical, pharmaceutical and food industries.",
+    ctaQuote: "Request Quote",
+    ctaCall: "Call Now: +359 890 998837",
+    
+    // Industrial Packaging Section
+    industrialBadge: "INDUSTRIAL PACKAGING",
+    industrialTitle: "Our Manufacturing Facility",
+    industrialSubtitle: "Spiraltainer® technology production line",
+    industrialParagraph1: "Drums are the backbone of Varmet's Industrial Packaging & Services activity. The wide range of steel drums complies with the highest packaging requirements imposed by the petrochemical, chemical, pharmaceutical and food industries.",
+    industrialParagraph2: "The packaging is produced with the latest production technology and tested in accordance with UN regulations to guarantee optimum protection for a broad range of dangerous and non-dangerous goods.",
+    
+    // Key Features Section
+    featuresBadge: "KEY FEATURES",
+    featuresTitle: "Advanced Technology",
+    featuresSubtitle: "Superior Performance Drums",
+    
+    // Features List
+    feature1Title: "UN Certified",
+    feature1Desc: "Comply with stringent UN recommendations for packing dangerous and non-dangerous goods in packaging groups I, II and III.",
+    
+    feature2Title: "Spiraltainer® Technology",
+    feature2Desc: "Combines superior vacuum resistance with efficient loading in standard 20 and 40 ft freight containers.",
+    
+    feature3Title: "Spiralon Triple Seam",
+    feature3Desc: "Electrically welded vertical seam. Bottom and top seamed by Varmet Spiralon triple seam for safe performance.",
+    
+    feature4Title: "Internal Coating",
+    feature4Desc: "Internally coated with epoxy or epoxy-phenolic water based lining. Technical assistance available.",
+    
+    feature5Title: "Standard Gauge Range",
+    feature5Desc: "Range of standard gauge combinations covering required UN performance level for practically all filling goods.",
+    
+    feature6Title: "Independent Certification",
+    feature6Desc: "Certified by independent test institutes to comply with UN recommendations and transport regulations.",
+    
+    feature7Title: "RAL Colour System",
+    feature7Desc: "Standardized on international RAL colour system for external colours to ensure consistent quality worldwide.",
+    
+    feature8Title: "Custom Branding",
+    feature8Desc: "Can be painted in customer corporate colours. Logos and texts applied by means of screen-painting.",
+    
+    // Trademarks
+    trademarksLabel: "Registered trademarks:",
+    
+    // Technical Specifications
+    techBadge: "TECHNICAL DATA",
+    techTitle: "Specifications",
+    techSubtitle: "216,5 Liter Steel Drums",
+    techTableTitle: "Technical Specifications Table",
+    techTableSubtitle: "Large Tight Head Steel Drums (216,5 liter)",
+    unCertified: "UN Certified",
+    
+    // Table Headers
+    thVolume: "Nominal volume [dm³]",
+    thTop: "Thickness [mm] top",
+    thBody: "Thickness [mm] body",
+    thBottom: "Thickness [mm] bottom",
+    thType: "Type",
+    thWeight: "Weight [kg] ± 3%",
+    thUnMarkings: "UN markings",
+    
+    // Table Footer
+    configsAvailable: "6 standard configurations available",
+    downloadSpecs: "Download Full Spec Sheet",
+    
+    // Material Specifications
+    materialBadge: "CONSTRUCTION DETAILS",
+    materialTitle: "Material Specifications",
+    
+    // Material Specs List
+    material1Title: "Steel",
+    material1Desc: "Commercial grade steel sheet. Specification according to EN 101130 / EN 10131 or equivalent standards.",
+    
+    material2Title: "Closures",
+    material2Desc: "Two Tri-Sure® 4S® closures, G2 and G ¾ are manufactured to meet ISO 15750 international standards. These closures may be sealed by Tab-Seal® caps, neutral or to customer design. Closures are fitted with Varmet's standard high performance air washers.",
+    
+    material3Title: "Construction",
+    material3Desc: "Body: electrically welded longitudinal seam. Spiraltainer body configuration. Below 1.0 mm with 2x3 corrugations to provide optimal vacuum resistance.",
+    
+    material4Title: "Assembly",
+    material4Desc: "The Varmet Spiralon triple seam guarantees a safe performance.",
+    
+    material5Title: "Standards",
+    material5Desc: "EN210",
+    
+    material6Title: "Internal lining",
+    material6Desc: "If plain drums are not suitable for your application, Varmet can apply epoxy or epoxy-phenolic water based lining.",
+    
+    material7Title: "Exterior paints & decorations",
+    material7Desc: "Colours according to the Varmet RAL standard range (or to special customer specifications). Options: Multi-colour drum and one-colour silk screen decorations.",
+    
+    // Contact Section
+    contactBadge: "READY TO ORDER",
+    contactTitle: "Request Your Steel Drums Today",
+    contactDescription: "Contact us for pricing, technical specifications, and custom manufacturing options.",
+    ctaContact: "Get In Touch",
+    ctaPhone: "Call Now: +359 890 998837"
+  },
+  bg: {
+  // Hero Section
+  badge: "VARMET MANUFACTURING",
+  title: "Метални варели",
+  subtitle: "Големи метални варели с неподвижен капак (216,5 л)",
+  description:
+    "Сигурно и сертифицирано опаковъчно решение за петрохимическата, химическата, фармацевтичната и хранителната индустрия.",
+  ctaQuote: "Заяви оферта",
+  ctaCall: "Обади се: +359 890 998837",
+
+  // Industrial Packaging Section
+  industrialBadge: "ИНДУСТРИАЛНО ОПАКОВАНЕ",
+  industrialTitle: "Производствена база",
+  industrialSubtitle: "Производствена линия с технология Spiraltainer®",
+  industrialParagraph1:
+    "Металните варели са в основата на дейността на Varmet в индустриалните опаковки. Предлагаме широка гама решения, които покриват най-високите изисквания на петрохимическата, химическата, фармацевтичната и хранителната индустрия.",
+  industrialParagraph2:
+    "Произвеждаме с модерни технологии и тестваме съгласно изискванията на ООН, за да осигурим максимална защита при транспорт и съхранение на опасни и неопасни товари.",
+
+  // Key Features Section
+  featuresBadge: "КЛЮЧОВИ ПРЕДИМСТВА",
+  featuresTitle: "Съвременна технология",
+  featuresSubtitle: "Надеждна защита",
+
+  // Features List
+  feature1Title: "ООН сертификация",
+  feature1Desc:
+    "Отговарят на строгите изисквания на ООН за опаковане на опасни и неопасни товари в групи I, II и III.",
+
+  feature2Title: "Технология Spiraltainer®",
+  feature2Desc:
+    "Висока устойчивост на вакуум и оптимално натоварване в стандартни 20’ и 40’ товарни контейнери.",
+
+  feature3Title: "Троен шев Spiralon",
+  feature3Desc:
+    "Електрозаварен надлъжен шев. Дъното и горната част са затворени с троен шев Varmet Spiralon за максимална безопасност.",
+
+  feature4Title: "Вътрешно покритие",
+  feature4Desc:
+    "Епоксидно или епокси-фенолно водоразтворимо покритие според продукта. Предлагаме и техническа консултация.",
+
+  feature5Title: "Стандартни дебелини",
+  feature5Desc:
+    "Комбинации от стандартни дебелини, покриващи необходимото ООН ниво на тестване за почти всички видове товари.",
+
+  feature6Title: "Независима сертификация",
+  feature6Desc:
+    "Сертифицирани от независими изпитвателни институти според ООН препоръките и транспортните регулации.",
+
+  feature7Title: "Цветова система RAL",
+  feature7Desc:
+    "Външни цветове по международната система RAL за постоянство на качеството и разпознаваемост на бранда.",
+
+  feature8Title: "Брандиране по поръчка",
+  feature8Desc:
+    "Боядисване в корпоративни цветове. Лога и текст – чрез ситопечат за професионален завършек.",
+
+  // Trademarks
+  trademarksLabel: "Регистрирани търговски марки:",
+
+  // Technical Specifications
+  techBadge: "ТЕХНИЧЕСКИ ДАННИ",
+  techTitle: "Спецификации",
+  techSubtitle: "Метални варели 216,5 л",
+  techTableTitle: "Технически параметри",
+  techTableSubtitle: "Големи метални варели (216,5 л)",
+  unCertified: "ООН сертифицирани",
+
+  // Table Headers
+  thVolume: "Номинален обем [дм³]",
+  thTop: "Дебелина [мм] горна част",
+  thBody: "Дебелина [мм] тяло",
+  thBottom: "Дебелина [мм] дъно",
+  thType: "Тип",
+  thWeight: "Тегло [кг] ± 3%",
+  thUnMarkings: "UN маркировка",
+
+  // Table Footer
+  configsAvailable: "Налични са 6 стандартни конфигурации",
+  downloadSpecs: "Изтегли пълната спецификация",
+
+  // Material Specifications
+  materialBadge: "КОНСТРУКТИВНИ ДЕТАЙЛИ",
+  materialTitle: "Материали и конструкция",
+
+  // Material Specs List
+  material1Title: "Стомана",
+  material1Desc:
+    "Листова стомана – търговско качество. Спецификация по EN 10130 / EN 10131 или еквивалентни стандарти.",
+
+  material2Title: "Затварящи елементи",
+  material2Desc:
+    "Две тапи Tri-Sure® 4S® – G2 и G ¾, произведени съгласно ISO 15750. Могат да се запечатват с Tab-Seal® капачки – стандартни или по дизайн на клиента. Окомплектовани са с високопроизводителни уплътнителни шайби на Varmet.",
+
+  material3Title: "Конструкция",
+  material3Desc:
+    "Тяло: електрозаварен надлъжен шев. Конфигурация Spiraltainer®. При дебелини под 1,0 мм – се използва 2×3 гофриране за оптимална устойчивост на вакуум.",
+
+  material4Title: "Сглобяване",
+  material4Desc:
+    "Тройният шев Varmet Spiralon осигурява надеждна херметичност и безопасна експлоатация.",
+
+  material5Title: "Стандарти",
+  material5Desc: "EN 210",
+
+  material6Title: "Вътрешна облицовка",
+  material6Desc:
+    "При нужда от допълнителна химическа устойчивост, Varmet предлага епоксидна или епокси-фенолна водоразтворима облицовка.",
+
+  material7Title: "Външно боядисване и декорации",
+  material7Desc:
+    "Цветове по стандартната RAL гама на Varmet (или по задание на клиента). Опции: многоцветно боядисване и едноцветен ситопечат.",
+
+  // Contact Section
+  contactBadge: "ГОТОВИ ЗА ПОРЪЧКА",
+  contactTitle: "Заяви метални варели още днес",
+  contactDescription:
+    "Свържи се с нас за цена, технически параметри и производство по поръчка.",
+  ctaContact: "Свържи се с нас",
+  ctaPhone: "Обади се: +359 890 998837",
+}
+
+};
 
 export default function SteelDrumsPage() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [language, setLanguage] = useState("en");
 
   useEffect(() => {
     setIsLoaded(true);
+    // Load saved language from localStorage
+    const savedLang = localStorage.getItem("varmet-language") || "en";
+    setLanguage(savedLang);
   }, []);
 
-  // Features data - using EXACT text from provided content
+  useEffect(() => {
+    // Listen for language changes from the LanguageSwitcher
+    const handleLanguageChange = (event: CustomEvent) => {
+      setLanguage(event.detail.lang);
+    };
+
+    window.addEventListener("language-changed", handleLanguageChange as EventListener);
+    
+    return () => {
+      window.removeEventListener("language-changed", handleLanguageChange as EventListener);
+    };
+  }, []);
+
+  const t = steelDrumsContent[language as keyof typeof steelDrumsContent];
+
+  // Features data with bilingual support
   const features = [
     {
       icon: <Shield className="w-7 h-7" />,
-      title: "UN Certified",
-      description: "Comply with stringent UN recommendations for packing dangerous and non-dangerous goods in packaging groups I, II and III.",
+      title: t.feature1Title,
+      description: t.feature1Desc,
       color: "from-blue-500 to-cyan-500",
       bgColor: "from-blue-50 to-cyan-50",
     },
     {
       icon: <Factory className="w-7 h-7" />,
-      title: "Spiraltainer® Technology",
-      description: "Combines superior vacuum resistance with efficient loading in standard 20 and 40 ft freight containers.",
+      title: t.feature2Title,
+      description: t.feature2Desc,
       color: "from-emerald-500 to-teal-500",
       bgColor: "from-emerald-50 to-teal-50",
     },
     {
       icon: <Package className="w-7 h-7" />,
-      title: "Spiralon Triple Seam",
-      description: "Electrically welded vertical seam. Bottom and top seamed by Varmet Spiralon triple seam for safe performance.",
+      title: t.feature3Title,
+      description: t.feature3Desc,
       color: "from-violet-500 to-purple-500",
       bgColor: "from-violet-50 to-purple-50",
     },
     {
       icon: <Paintbrush className="w-7 h-7" />,
-      title: "Internal Coating",
-      description: "Internally coated with epoxy or epoxy-phenolic water based lining. Technical assistance available.",
+      title: t.feature4Title,
+      description: t.feature4Desc,
       color: "from-orange-500 to-amber-500",
       bgColor: "from-orange-50 to-amber-50",
     },
     {
       icon: <Award className="w-7 h-7" />,
-      title: "Standard Gauge Range",
-      description: "Range of standard gauge combinations covering required UN performance level for practically all filling goods.",
+      title: t.feature5Title,
+      description: t.feature5Desc,
       color: "from-rose-500 to-pink-500",
       bgColor: "from-rose-50 to-pink-50",
     },
     {
       icon: <CheckCircle className="w-7 h-7" />,
-      title: "Independent Certification",
-      description: "Certified by independent test institutes to comply with UN recommendations and transport regulations.",
+      title: t.feature6Title,
+      description: t.feature6Desc,
       color: "from-indigo-500 to-blue-500",
       bgColor: "from-indigo-50 to-blue-50",
     },
     {
       icon: <Globe className="w-7 h-7" />,
-      title: "RAL Colour System",
-      description: "Standardized on international RAL colour system for external colours to ensure consistent quality worldwide.",
+      title: t.feature7Title,
+      description: t.feature7Desc,
       color: "from-cyan-500 to-teal-500",
       bgColor: "from-cyan-50 to-teal-50",
     },
     {
       icon: <Users className="w-7 h-7" />,
-      title: "Custom Branding",
-      description: "Can be painted in customer corporate colours. Logos and texts applied by means of screen-painting.",
+      title: t.feature8Title,
+      description: t.feature8Desc,
       color: "from-gray-600 to-gray-700",
       bgColor: "from-gray-50 to-gray-100",
     },
   ];
 
-  // Technical specifications - EXACT data from table
+  // Technical specifications
   const technicalSpecs = [
     {
       volume: "216,5",
@@ -135,87 +377,81 @@ export default function SteelDrumsPage() {
     },
   ];
 
-  // Material specifications - EXACT text from content
+  // Material specifications with bilingual support
   const materialSpecs = [
     {
-      category: "Steel",
-      description: "Commercial grade steel sheet. Specification according to EN 101130 / EN 10131 or equivalent standards.",
+      category: t.material1Title,
+      description: t.material1Desc,
       icon: "⚙️"
     },
     {
-      category: "Closures",
-      description: "Two Tri-Sure® 4S® closures, G2 and G ¾ are manufactured to meet ISO 15750 international standards. These closures may be sealed by Tab-Seal® caps, neutral or to customer design. Closures are fitted with Varmet's standard high performance air washers.",
+      category: t.material2Title,
+      description: t.material2Desc,
       icon: "🔒"
     },
     {
-      category: "Construction",
-      description: "Body: electrically welded longitudinal seam. Spiraltainer body configuration. Below 1.0 mm with 2x3 corrugations to provide optimal vacuum resistance.",
+      category: t.material3Title,
+      description: t.material3Desc,
       icon: "🏗️"
     },
     {
-      category: "Assembly",
-      description: "The Varmet Spiralon triple seam guarantees a safe performance.",
+      category: t.material4Title,
+      description: t.material4Desc,
       icon: "⚡"
     },
     {
-      category: "Standards",
-      description: "EN210",
+      category: t.material5Title,
+      description: t.material5Desc,
       icon: "📜"
     },
     {
-      category: "Internal lining",
-      description: "If plain drums are not suitable for your application, Varmet can apply epoxy or epoxy-phenolic water based lining.",
+      category: t.material6Title,
+      description: t.material6Desc,
       icon: "🎨"
     },
     {
-      category: "Exterior paints & decorations",
-      description: "Colours according to the Varmet RAL standard range (or to special customer specifications). Options: Multi-colour drum and one-colour silk screen decorations.",
+      category: t.material7Title,
+      description: t.material7Desc,
       icon: "✨"
     },
   ];
 
-  // Trademarks - EXACT text from content
+  // Trademarks - same in both languages
   const trademarks = ["RDL", "Spiralon", "Tri-Sure", "4S", "Tab-Seal"];
 
   return (
     <main className="bg-white">
-      {/* Enhanced Hero Section */}
+      {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 min-h-[90vh] flex items-center">
-        {/* Background Elements */}
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-r from-blue-500/10 to-cyan-500/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-l from-emerald-500/5 to-teal-500/5 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-400/3 to-cyan-400/2 rounded-full blur-3xl" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8 py-24 lg:py-32">
           <div className={`max-w-5xl mx-auto transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            {/* Enhanced Badge */}
-            <div className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-xl border border-white/20 shadow-lg mb-10 group hover:border-white/30 transition-all duration-300">
-              <div className="w-2.5 h-2.5 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse shadow-glow-blue" />
+            <div className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-xl border border-white/20 shadow-lg mb-10">
+              <div className="w-2.5 h-2.5 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse" />
               <span className="text-sm font-bold tracking-[0.3em] text-white/95 uppercase">
-                VARMET MANUFACTURING
+                {t.badge}
               </span>
             </div>
             
-            {/* Enhanced Title */}
             <div className="mb-10">
               <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight mb-6">
                 <span className="block bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent leading-[0.9]">
-                  Steel Drums
+                  {t.title}
                 </span>
               </h1>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-cyan-300/90 mb-8">
-                Large Tight Head Steel Drums (216,5 liter)
+                {t.subtitle}
               </h2>
             </div>
             
-            {/* Enhanced Subtitle */}
-            <p className="text-2xl md:text-3xl text-white/90 leading-relaxed max-w-4xl font-light mb-12 tracking-wide">
-              The packaging solution for the petrochemical, chemical, pharmaceutical and food industries.
+            <p className={`text-2xl md:text-3xl text-white/90 leading-relaxed max-w-4xl font-light mb-12 tracking-wide ${language === 'bg' ? 'tracking-wide' : ''}`}>
+              {t.description}
             </p>
 
-            {/* Enhanced CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-5 items-start">
               <Link
                 href="/contact"
@@ -226,10 +462,9 @@ export default function SteelDrumsPage() {
                   shadow-lg hover:shadow-blue-500/25 min-w-[240px]"
               >
                 <span className="relative z-10 flex items-center gap-3">
-                  Request Quote
+                  {t.ctaQuote}
                   <ChevronRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform" />
                 </span>
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </Link>
               
               <a
@@ -241,14 +476,14 @@ export default function SteelDrumsPage() {
                   shadow-lg hover:shadow-cyan-500/25 border border-blue-500/30 min-w-[240px]"
               >
                 <Phone className="w-5 h-5 mr-3" />
-                +359 890 998837
+                {t.ctaCall}
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main Description with Image */}
+      {/* Main Description Section */}
       <section className="py-24 bg-gradient-to-b from-white via-gray-50/30 to-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className={`grid lg:grid-cols-2 gap-16 items-center transition-all duration-1000 delay-200 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
@@ -256,12 +491,11 @@ export default function SteelDrumsPage() {
               <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <div className="aspect-[4/3] relative bg-gradient-to-br from-gray-900 to-gray-800">
-                  {/* Replace with actual image */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-white text-center p-8">
                       <Factory className="w-32 h-32 mx-auto mb-8 text-blue-400 opacity-80" />
-                      <p className="text-3xl font-bold mb-3">Our Manufacturing Facility</p>
-                      <p className="text-gray-300 text-lg">Spiraltainer® technology production line</p>
+                      <p className="text-3xl font-bold mb-3">{t.industrialTitle}</p>
+                      <p className="text-gray-300 text-lg">{t.industrialSubtitle}</p>
                     </div>
                   </div>
                 </div>
@@ -272,16 +506,16 @@ export default function SteelDrumsPage() {
               <div className="flex items-center mb-10 group">
                 <div className="w-12 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 mr-5 group-hover:w-20 transition-all duration-300" />
                 <span className="text-sm font-bold tracking-[0.3em] text-gray-500 uppercase">
-                  INDUSTRIAL PACKAGING
+                  {t.industrialBadge}
                 </span>
               </div>
               
               <div className="prose prose-lg max-w-none">
-                <p className="text-xl leading-relaxed text-gray-700 mb-8">
-                  Drums are the backbone of Varmet's Industrial Packaging & Services activity. The wide range of steel drums complies with the highest packaging requirements imposed by the petrochemical, chemical, pharmaceutical and food industries.
+                <p className={`text-xl leading-relaxed text-gray-700 mb-8 ${language === 'bg' ? 'tracking-wide' : ''}`}>
+                  {t.industrialParagraph1}
                 </p>
-                <p className="text-xl leading-relaxed text-gray-700">
-                  The packaging is produced with the latest production technology and tested in accordance with UN regulations to guarantee optimum protection for a broad range of dangerous and non-dangerous goods.
+                <p className={`text-xl leading-relaxed text-gray-700 ${language === 'bg' ? 'tracking-wide' : ''}`}>
+                  {t.industrialParagraph2}
                 </p>
               </div>
             </div>
@@ -289,21 +523,21 @@ export default function SteelDrumsPage() {
         </div>
       </section>
 
-      {/* Enhanced Features Grid */}
+      {/* Key Features Section */}
       <section className="py-24 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className={`max-w-6xl mx-auto transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
             <div className="text-center mb-20">
               <div className="inline-flex items-center gap-5 mb-10">
                 <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-cyan-500" />
-                <span className="text-sm font-bold tracking-[0.3em] text-gray-500 uppercase">KEY FEATURES</span>
+                <span className="text-sm font-bold tracking-[0.3em] text-gray-500 uppercase">{t.featuresBadge}</span>
                 <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-blue-600" />
               </div>
               
               <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-10">
-                Advanced Technology
+                {t.featuresTitle}
                 <span className="block text-3xl md:text-4xl text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text mt-4">
-                  Superior Performance Drums
+                  {t.featuresSubtitle}
                 </span>
               </h2>
             </div>
@@ -315,15 +549,10 @@ export default function SteelDrumsPage() {
                   className={`group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl border border-gray-100 p-8 
                     hover:border-transparent transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl
                     ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-                  style={{ 
-                    transitionDelay: `${400 + index * 100}ms`,
-                    background: `linear-gradient(135deg, white, #f9fafb)`
-                  }}
+                  style={{ transitionDelay: `${400 + index * 100}ms` }}
                 >
-                  {/* Glow effect */}
                   <div className={`absolute -inset-0.5 bg-gradient-to-r ${feature.color} rounded-2xl opacity-0 group-hover:opacity-10 blur transition-opacity duration-500`} />
                   
-                  {/* Icon container */}
                   <div className={`relative mb-8 inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.bgColor} 
                     border border-gray-200 group-hover:border-transparent transition-all duration-300`}>
                     <div className={`bg-gradient-to-r ${feature.color} bg-clip-text text-transparent`}>
@@ -335,7 +564,7 @@ export default function SteelDrumsPage() {
                     {feature.title}
                   </h3>
                   
-                  <p className="text-gray-600 leading-relaxed text-sm relative">
+                  <p className={`text-gray-600 leading-relaxed text-sm relative ${language === 'bg' ? 'tracking-wide' : ''}`}>
                     {feature.description}
                   </p>
                 </div>
@@ -346,7 +575,7 @@ export default function SteelDrumsPage() {
             <div className="mt-24 pt-12 border-t border-gray-200">
               <div className="text-center">
                 <p className="text-sm text-gray-500 font-medium">
-                  Registered trademarks:{" "}
+                  {t.trademarksLabel}{" "}
                   <span className="text-gray-700 font-bold">
                     {trademarks.join(" • ")}
                   </span>
@@ -357,65 +586,62 @@ export default function SteelDrumsPage() {
         </div>
       </section>
 
-      {/* Enhanced Technical Specifications */}
+      {/* Technical Specifications Section */}
       <section className="py-24 bg-gradient-to-b from-gray-50/50 via-white to-gray-50/50">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className={`max-w-6xl mx-auto transition-all duration-1000 delay-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-5 mb-10">
                 <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-cyan-500" />
-                <span className="text-sm font-bold tracking-[0.3em] text-gray-500 uppercase">TECHNICAL DATA</span>
+                <span className="text-sm font-bold tracking-[0.3em] text-gray-500 uppercase">{t.techBadge}</span>
                 <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-blue-600" />
               </div>
               
               <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-10">
-                Specifications
+                {t.techTitle}
                 <span className="block text-3xl md:text-4xl text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text mt-4">
-                  216,5 Liter Steel Drums
+                  {t.techSubtitle}
                 </span>
               </h2>
             </div>
 
-            {/* Enhanced Table */}
             <div className="relative bg-white rounded-3xl border border-gray-200 shadow-2xl overflow-hidden">
-              {/* Table Header Gradient */}
               <div className="bg-gradient-to-r from-gray-900 to-blue-900 px-8 py-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-white">Technical Specifications Table</h3>
-                    <p className="text-gray-300 text-sm mt-1">Large Tight Head Steel Drums (216,5 liter)</p>
+                    <h3 className="text-xl font-bold text-white">{t.techTableTitle}</h3>
+                    <p className="text-gray-300 text-sm mt-1">{t.techTableSubtitle}</p>
                   </div>
                   <div className="px-4 py-2 bg-white/10 rounded-lg border border-white/20">
-                    <span className="text-white text-sm font-medium">UN Certified</span>
+                    <span className="text-white text-sm font-medium">{t.unCertified}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Table */}
               <div className="overflow-x-auto">
                 <table className="min-w-full">
                   <thead className="bg-gradient-to-r from-gray-50 to-blue-50/30">
                     <tr>
                       <th className="px-8 py-6 text-left text-xs font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">
-                        Nominal volume [dm³]
+                        {t.thVolume}
                       </th>
                       <th className="px-8 py-6 text-left text-xs font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">
-                        Thickness [mm] top
+                        {t.thTop}
                       </th>
                       <th className="px-8 py-6 text-left text-xs font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">
-                        Thickness [mm] body
+                        {t.thBody}
                       </th>
                       <th className="px-8 py-6 text-left text-xs font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">
-                        Thickness [mm] bottom
+                        {t.thBottom}
                       </th>
                       <th className="px-8 py-6 text-left text-xs font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">
-                        Type
+                        {t.thType}
                       </th>
                       <th className="px-8 py-6 text-left text-xs font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">
-                        Weight [kg] ± 3%
+                        {t.thWeight}
                       </th>
                       <th className="px-8 py-6 text-left text-xs font-bold text-gray-700 uppercase tracking-wider border-b border-gray-200">
-                        UN markings
+                        {t.thUnMarkings}
                       </th>
                     </tr>
                   </thead>
@@ -461,15 +687,16 @@ export default function SteelDrumsPage() {
                 </table>
               </div>
 
-              {/* Table Footer */}
               <div className="bg-gradient-to-r from-gray-50/50 to-blue-50/30 px-8 py-6 border-t border-gray-100">
                 <div className="flex items-center justify-between text-sm text-gray-600">
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500"></div>
-                    <span>6 standard configurations available</span>
+                    <span className={language === 'bg' ? 'tracking-wide' : ''}>
+                      {t.configsAvailable}
+                    </span>
                   </div>
-                  <button className="group inline-flex items-center text-blue-600 font-semibold hover:text-blue-700">
-                    Download Full Spec Sheet
+                  <button className={`group inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 ${language === 'bg' ? 'tracking-wide' : ''}`}>
+                    {t.downloadSpecs}
                     <ChevronRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -479,19 +706,19 @@ export default function SteelDrumsPage() {
         </div>
       </section>
 
-      {/* Enhanced Material Specifications */}
+      {/* Material Specifications Section */}
       <section className="py-24 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className={`max-w-5xl mx-auto transition-all duration-1000 delay-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
             <div className="text-center mb-20">
               <div className="inline-flex items-center gap-5 mb-10">
                 <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-cyan-500" />
-                <span className="text-sm font-bold tracking-[0.3em] text-gray-500 uppercase">CONSTRUCTION DETAILS</span>
+                <span className="text-sm font-bold tracking-[0.3em] text-gray-500 uppercase">{t.materialBadge}</span>
                 <div className="w-16 h-1 bg-gradient-to-r from-cyan-500 to-blue-600" />
               </div>
               
               <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-10">
-                Material Specifications
+                {t.materialTitle}
               </h2>
             </div>
 
@@ -506,11 +733,11 @@ export default function SteelDrumsPage() {
                 >
                   <div className="mb-6 text-3xl">{spec.icon}</div>
                   
-                  <h3 className="text-2xl font-bold text-gray-900 mb-5">
+                  <h3 className={`text-2xl font-bold text-gray-900 mb-5 ${language === 'bg' ? 'tracking-wide' : ''}`}>
                     {spec.category}
                   </h3>
                   
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className={`text-gray-600 leading-relaxed ${language === 'bg' ? 'tracking-wide' : ''}`}>
                     {spec.description}
                   </p>
                 </div>
@@ -520,8 +747,55 @@ export default function SteelDrumsPage() {
         </div>
       </section>
 
-      {/* Enhanced Contact Section */}
-     
+      {/* Contact Section */}
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50/30">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 delay-900 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-200/50 shadow-lg mb-10">
+              <div className="w-2.5 h-2.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse" />
+              <span className="text-sm font-bold tracking-[0.3em] text-blue-600 uppercase">
+                {t.contactBadge}
+              </span>
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8">
+              {t.contactTitle}
+            </h2>
+            
+            <p className={`text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-12 ${language === 'bg' ? 'tracking-wide' : ''}`}>
+              {t.contactDescription}
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link
+                href="/contact"
+                className="group relative inline-flex items-center justify-center rounded-2xl 
+                  bg-gradient-to-r from-blue-600 to-cyan-600 px-12 py-6
+                  text-lg font-bold text-white transition-all duration-500
+                  hover:from-blue-700 hover:to-cyan-700 hover:scale-[1.02] hover:shadow-2xl
+                  shadow-lg hover:shadow-cyan-500/25 border border-blue-500/30"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  {t.ctaContact}
+                  <ChevronRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform" />
+                </span>
+              </Link>
+              
+              <a
+                href="tel:+359890998837"
+                className="group relative inline-flex items-center justify-center rounded-2xl 
+                  bg-gradient-to-r from-white to-gray-50 px-12 py-6
+                  text-lg font-bold text-gray-900 transition-all duration-500
+                  hover:from-blue-50 hover:to-cyan-50 hover:scale-[1.02] hover:shadow-2xl
+                  shadow-lg hover:shadow-blue-500/25 border border-gray-200"
+              >
+                <Phone className="w-5 h-5 mr-3" />
+                {t.ctaPhone}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
