@@ -227,7 +227,7 @@ export default function GalleryPage() {
   };
 
   return (
-    <main className="bg-white">
+    <main className="bg-white mt-10">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
         <div className="absolute inset-0">

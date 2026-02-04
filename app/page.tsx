@@ -77,7 +77,7 @@ export default function HomePage() {
   const t = content[language as keyof typeof content];
 
   return (
-    <div className="bg-black">
+    <div className="bg-black mt-10">
       {/* HERO SECTION */}
       <section className="relative min-h-screen">
         {/* Enhanced Background with gradients */}

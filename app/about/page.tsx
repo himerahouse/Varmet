@@ -129,7 +129,7 @@ export default function Page() {
   const t = aboutContent[language as keyof typeof aboutContent];
 
   return (
-    <main className="bg-white">
+    <main className="bg-white mt-10">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
         {/* Animated background elements */}
