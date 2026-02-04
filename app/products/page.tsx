@@ -29,7 +29,7 @@ const productsContent = {
     // Featured Product - Metal Barrels
     featuredBadge: "FLAGSHIP PRODUCT",
     featuredCategory: "MANUFACTURING",
-    featuredTitle: "Metal Barrels",
+    featuredTitle: "Steel Drums",
     featuredSubtitle: "Large Tight Head Steel Drums (216.5 liter)",
     featuredDescription: "The packaging solution for the petrochemical, chemical, pharmaceutical and food industries.",
     featuredFeatures: ["216.5 liter capacity", "UN certified", "Spiraltainer® technology", "Chemical resistant"],

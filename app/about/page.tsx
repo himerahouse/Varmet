@@ -82,7 +82,7 @@ const aboutContent = {
     
     expert: "Експертен",
     expertSub: "Екип",
-    reliable: "Надежден",
+    reliable: "Надеждно",
     reliableSub: "Обслужване",
     
     whyChooseTitle: "Защо Да Изберете VARMET",

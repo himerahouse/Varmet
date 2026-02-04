@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Shield, Factory, Package, Globe, Paintbrush, CheckCircle, Award, Users, Phone, ChevronRight } from "lucide-react";
+import { Shield, Factory, Package, Globe, Paintbrush, CheckCircle, Award, Users, Phone, ChevronRight, Download } from "lucide-react";
 import Link from "next/link";
 
-// Bilingual content
+
+// Bilingual content - ADDED DOWNLOAD BUTTON TEXT
 const steelDrumsContent = {
   en: {
     // Hero Section
@@ -14,6 +15,7 @@ const steelDrumsContent = {
     description: "The packaging solution for the petrochemical, chemical, pharmaceutical and food industries.",
     ctaQuote: "Request Quote",
     ctaCall: "Call Now: +359 890 998837",
+    downloadPresentation: "Download Presentation", // ADDED
     
     // Industrial Packaging Section
     industrialBadge: "INDUSTRIAL PACKAGING",
@@ -110,127 +112,109 @@ const steelDrumsContent = {
     ctaPhone: "Call Now: +359 890 998837"
   },
   bg: {
-  // Hero Section
-  badge: "VARMET MANUFACTURING",
-  title: "Метални варели",
-  subtitle: "Големи метални варели с неподвижен капак (216,5 л)",
-  description:
-    "Сигурно и сертифицирано опаковъчно решение за петрохимическата, химическата, фармацевтичната и хранителната индустрия.",
-  ctaQuote: "Заяви оферта",
-  ctaCall: "Обади се: +359 890 998837",
+    // Hero Section
+    badge: "VARMET MANUFACTURING",
+    title: "Метални варели",
+    subtitle: "Големи метални варели с неподвижен капак (216,5 л)",
+    description: "Сигурно и сертифицирано опаковъчно решение за петрохимическата, химическата, фармацевтичната и хранителната индустрия.",
+    ctaQuote: "Заяви оферта",
+    ctaCall: "Обади се: +359 890 998837",
+    downloadPresentation: "Изтегли презентация", // ADDED
+    
+    // Industrial Packaging Section
+    industrialBadge: "ИНДУСТРИАЛНО ОПАКОВАНЕ",
+    industrialTitle: "Производствена база",
+    industrialSubtitle: "Производствена линия с технология Spiraltainer®",
+    industrialParagraph1: "Металните варели са в основата на дейността на Varmet в индустриалните опаковки. Предлагаме широка гама решения, които покриват най-високите изисквания на петрохимическата, химическата, фармацевтичната и хранителната индустрия.",
+    industrialParagraph2: "Произвеждаме с модерни технологии и тестваме съгласно изискванията на ООН, за да осигурим максимална защита при транспорт и съхранение на опасни и неопасни товари.",
 
-  // Industrial Packaging Section
-  industrialBadge: "ИНДУСТРИАЛНО ОПАКОВАНЕ",
-  industrialTitle: "Производствена база",
-  industrialSubtitle: "Производствена линия с технология Spiraltainer®",
-  industrialParagraph1:
-    "Металните варели са в основата на дейността на Varmet в индустриалните опаковки. Предлагаме широка гама решения, които покриват най-високите изисквания на петрохимическата, химическата, фармацевтичната и хранителната индустрия.",
-  industrialParagraph2:
-    "Произвеждаме с модерни технологии и тестваме съгласно изискванията на ООН, за да осигурим максимална защита при транспорт и съхранение на опасни и неопасни товари.",
+    // Key Features Section
+    featuresBadge: "КЛЮЧОВИ ПРЕДИМСТВА",
+    featuresTitle: "Съвременна технология",
+    featuresSubtitle: "Надеждна защита",
 
-  // Key Features Section
-  featuresBadge: "КЛЮЧОВИ ПРЕДИМСТВА",
-  featuresTitle: "Съвременна технология",
-  featuresSubtitle: "Надеждна защита",
+    // Features List
+    feature1Title: "ООН сертификация",
+    feature1Desc: "Отговарят на строгите изисквания на ООН за опаковане на опасни и неопасни товари в групи I, II и III.",
 
-  // Features List
-  feature1Title: "ООН сертификация",
-  feature1Desc:
-    "Отговарят на строгите изисквания на ООН за опаковане на опасни и неопасни товари в групи I, II и III.",
+    feature2Title: "Технология Spiraltainer®",
+    feature2Desc: "Висока устойчивост на вакуум и оптимално натоварване в стандартни 20' и 40' товарни контейнери.",
 
-  feature2Title: "Технология Spiraltainer®",
-  feature2Desc:
-    "Висока устойчивост на вакуум и оптимално натоварване в стандартни 20’ и 40’ товарни контейнери.",
+    feature3Title: "Троен шев Spiralon",
+    feature3Desc: "Електрозаварен надлъжен шев. Дъното и горната част са затворени с троен шев Varmet Spiralon за максимална безопасност.",
 
-  feature3Title: "Троен шев Spiralon",
-  feature3Desc:
-    "Електрозаварен надлъжен шев. Дъното и горната част са затворени с троен шев Varmet Spiralon за максимална безопасност.",
+    feature4Title: "Вътрешно покритие",
+    feature4Desc: "Вътрешно покритие с епоксидна или епокси-фенолна облицовка на водна основа. Налична е техническа консултация.",
 
-  feature4Title: "Вътрешно покритие",
-  feature4Desc:
-    "Епоксидно или епокси-фенолно водоразтворимо покритие според продукта. Предлагаме и техническа консултация.",
+    feature5Title: "Стандартни дебелини",
+    feature5Desc: "Комбинации от стандартни дебелини, покриващи необходимото ООН ниво на тестване за почти всички видове товари.",
 
-  feature5Title: "Стандартни дебелини",
-  feature5Desc:
-    "Комбинации от стандартни дебелини, покриващи необходимото ООН ниво на тестване за почти всички видове товари.",
+    feature6Title: "Независима сертификация",
+    feature6Desc: "Сертифицирани от независими изпитвателни институти според ООН препоръките и транспортните регулации.",
 
-  feature6Title: "Независима сертификация",
-  feature6Desc:
-    "Сертифицирани от независими изпитвателни институти според ООН препоръките и транспортните регулации.",
+    feature7Title: "Цветова система RAL",
+    feature7Desc: "Външни цветове по международната система RAL за постоянство на качеството и разпознаваемост на бранда.",
 
-  feature7Title: "Цветова система RAL",
-  feature7Desc:
-    "Външни цветове по международната система RAL за постоянство на качеството и разпознаваемост на бранда.",
+    feature8Title: "Брандиране по поръчка",
+    feature8Desc: "Боядисване в корпоративни цветове. Лога и текст – чрез ситопечат за професионален завършек.",
 
-  feature8Title: "Брандиране по поръчка",
-  feature8Desc:
-    "Боядисване в корпоративни цветове. Лога и текст – чрез ситопечат за професионален завършек.",
+    // Trademarks
+    trademarksLabel: "Регистрирани търговски марки:",
 
-  // Trademarks
-  trademarksLabel: "Регистрирани търговски марки:",
+    // Technical Specifications
+    techBadge: "ТЕХНИЧЕСКИ ДАННИ",
+    techTitle: "Спецификации",
+    techSubtitle: "Метални варели 216,5 л",
+    techTableTitle: "Технически параметри",
+    techTableSubtitle: "Големи метални варели (216,5 л)",
+    unCertified: "ООН сертифицирани",
 
-  // Technical Specifications
-  techBadge: "ТЕХНИЧЕСКИ ДАННИ",
-  techTitle: "Спецификации",
-  techSubtitle: "Метални варели 216,5 л",
-  techTableTitle: "Технически параметри",
-  techTableSubtitle: "Големи метални варели (216,5 л)",
-  unCertified: "ООН сертифицирани",
+    // Table Headers
+    thVolume: "Номинален обем [дм³]",
+    thTop: "Дебелина [мм] горна част",
+    thBody: "Дебелина [мм] тяло",
+    thBottom: "Дебелина [мм] дъно",
+    thType: "Тип",
+    thWeight: "Тегло [кг] ± 3%",
+    thUnMarkings: "UN маркировка",
 
-  // Table Headers
-  thVolume: "Номинален обем [дм³]",
-  thTop: "Дебелина [мм] горна част",
-  thBody: "Дебелина [мм] тяло",
-  thBottom: "Дебелина [мм] дъно",
-  thType: "Тип",
-  thWeight: "Тегло [кг] ± 3%",
-  thUnMarkings: "UN маркировка",
+    // Table Footer
+    configsAvailable: "Налични са 6 стандартни конфигурации",
+    downloadSpecs: "Изтегли пълната спецификация",
 
-  // Table Footer
-  configsAvailable: "Налични са 6 стандартни конфигурации",
-  downloadSpecs: "Изтегли пълната спецификация",
+    // Material Specifications
+    materialBadge: "КОНСТРУКТИВНИ ДЕТАЙЛИ",
+    materialTitle: "Материали и конструкция",
 
-  // Material Specifications
-  materialBadge: "КОНСТРУКТИВНИ ДЕТАЙЛИ",
-  materialTitle: "Материали и конструкция",
+    // Material Specs List
+    material1Title: "Стомана",
+    material1Desc: "Листова стомана – търговско качество. Спецификация по EN 10130 / EN 10131 или еквивалентни стандарти.",
 
-  // Material Specs List
-  material1Title: "Стомана",
-  material1Desc:
-    "Листова стомана – търговско качество. Спецификация по EN 10130 / EN 10131 или еквивалентни стандарти.",
+    material2Title: "Затварящи елементи",
+    material2Desc: "Две тапи Tri-Sure® 4S® – G2 и G ¾, произведени съгласно ISO 15750. Могат да се запечатват с Tab-Seal® капачки – стандартни или по дизайн на клиента. Окомплектовани са с високопроизводителни уплътнителни шайби на Varmet.",
 
-  material2Title: "Затварящи елементи",
-  material2Desc:
-    "Две тапи Tri-Sure® 4S® – G2 и G ¾, произведени съгласно ISO 15750. Могат да се запечатват с Tab-Seal® капачки – стандартни или по дизайн на клиента. Окомплектовани са с високопроизводителни уплътнителни шайби на Varmet.",
+    material3Title: "Конструкция",
+    material3Desc: "Тяло: електрозаварен надлъжен шев. Конфигурация Spiraltainer®. При дебелини под 1,0 мм – се използва 2×3 гофриране за оптимална устойчивост на вакуум.",
 
-  material3Title: "Конструкция",
-  material3Desc:
-    "Тяло: електрозаварен надлъжен шев. Конфигурация Spiraltainer®. При дебелини под 1,0 мм – се използва 2×3 гофриране за оптимална устойчивост на вакуум.",
+    material4Title: "Сглобяване",
+    material4Desc: "Тройният шев Varmet Spiralon осигурява надеждна херметичност и безопасна експлоатация.",
 
-  material4Title: "Сглобяване",
-  material4Desc:
-    "Тройният шев Varmet Spiralon осигурява надеждна херметичност и безопасна експлоатация.",
+    material5Title: "Стандарти",
+    material5Desc: "EN 210",
 
-  material5Title: "Стандарти",
-  material5Desc: "EN 210",
+    material6Title: "Вътрешна облицовка",
+    material6Desc: "При нужда от допълнителна химическа устойчивост, Varmet предлага епоксидна или епокси-фенолна водоразтворима облицовка.",
 
-  material6Title: "Вътрешна облицовка",
-  material6Desc:
-    "При нужда от допълнителна химическа устойчивост, Varmet предлага епоксидна или епокси-фенолна водоразтворима облицовка.",
+    material7Title: "Външно боядисване и декорации",
+    material7Desc: "Цветове по стандартната RAL гама на Varmet (или по задание на клиента). Опции: многоцветно боядисване и едноцветен ситопечат.",
 
-  material7Title: "Външно боядисване и декорации",
-  material7Desc:
-    "Цветове по стандартната RAL гама на Varmet (или по задание на клиента). Опции: многоцветно боядисване и едноцветен ситопечат.",
-
-  // Contact Section
-  contactBadge: "ГОТОВИ ЗА ПОРЪЧКА",
-  contactTitle: "Заяви метални варели още днес",
-  contactDescription:
-    "Свържи се с нас за цена, технически параметри и производство по поръчка.",
-  ctaContact: "Свържи се с нас",
-  ctaPhone: "Обади се: +359 890 998837",
-}
-
+    // Contact Section
+    contactBadge: "ГОТОВИ ЗА ПОРЪЧКА",
+    contactTitle: "Заяви метални варели още днес",
+    contactDescription: "Свържи се с нас за цена, технически параметри и производство по поръчка.",
+    ctaContact: "Свържи се с нас",
+    ctaPhone: "Обади се: +359 890 998837",
+  }
 };
 
 export default function SteelDrumsPage() {
@@ -258,6 +242,20 @@ export default function SteelDrumsPage() {
   }, []);
 
   const t = steelDrumsContent[language as keyof typeof steelDrumsContent];
+
+  // Handle download presentation
+  const handleDownloadPresentation = () => {
+    // Replace this with the actual path to your presentation file
+    const presentationUrl = "/presentation.pdf";
+    
+    // Create a temporary link element
+    const link = document.createElement('a');
+    link.href = presentationUrl;
+    link.download = "presentation.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   // Features data with bilingual support
   const features = [
@@ -452,7 +450,8 @@ export default function SteelDrumsPage() {
               {t.description}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-5 items-start">
+            {/* UPDATED: Added Download Button */}
+            <div className="flex flex-col sm:flex-row gap-5 items-start mb-8">
               <Link
                 href="/contact"
                 className="group relative inline-flex items-center justify-center rounded-2xl 
@@ -478,6 +477,26 @@ export default function SteelDrumsPage() {
                 <Phone className="w-5 h-5 mr-3" />
                 {t.ctaCall}
               </a>
+            </div>
+
+            {/* NEW: Download Presentation Button */}
+            <div className="flex justify-center">
+              <button
+                onClick={handleDownloadPresentation}
+                className="group relative inline-flex items-center justify-center rounded-2xl 
+                  bg-gradient-to-r from-gray-800 to-gray-900 px-10 py-4
+                  text-base font-semibold text-white transition-all duration-500
+                  hover:from-gray-900 hover:to-gray-800 hover:scale-[1.02] hover:shadow-2xl
+                  shadow-lg hover:shadow-gray-500/25 border border-gray-700/30 min-w-[240px]"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  <Download className="w-5 h-5" />
+                  {t.downloadPresentation}
+                </span>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-gray-600/0 to-gray-500/0 
+                  group-hover:from-gray-600/20 group-hover:to-gray-500/20 
+                  transition-all duration-500" />
+              </button>
             </div>
           </div>
         </div>
