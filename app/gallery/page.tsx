@@ -26,41 +26,127 @@ import gallery18 from "../assets/Images/gallery/18.jpg";
 import gallery19 from "../assets/Images/gallery/19.jpg";
 import gallery20 from "../assets/Images/gallery/20.jpg";
 
+// Bilingual content for gallery
+const galleryContent = {
+  en: {
+    badge: "VISUAL SHOWCASE",
+    title: "Gallery",
+    description: "Explore our work through a visual journey of industrial solutions, sustainable practices, and successful projects that define our commitment to excellence.",
+    
+    sectionBadge: "OUR WORK IN IMAGES",
+    sectionTitleLine1: "Visual Portfolio",
+    sectionTitleLine2: "Of Excellence",
+    
+    noImagesTitle: "No Images Found",
+    noImagesDescription: "Please add images to the gallery folder",
+    
+    ctaBadge: "SEE MORE",
+    ctaTitleLine1: "Want to See More?",
+    ctaTitleLine2: "Contact Us Today",
+    ctaDescription: "Interested in seeing our projects in person or discussing potential collaborations? Get in touch with our team for personalized consultations.",
+    ctaButton: "Contact Us",
+    
+    // Modal content
+    imageOf: "Image",
+    of: "of",
+    download: "Download",
+    
+    // Image alt texts - you might want to make these more descriptive
+    imageAltPrefix: "VARMET Gallery Image",
+  },
+  bg: {
+    badge: "ВИЗУАЛНА ПРЕЗЕНТАЦИЯ",
+    title: "Галерия",
+    description: "Разгледайте нашата работа чрез визуално пътешествие в индустриалните решения, устойчивите практики и успешните проекти, които определят ангажимента ни към качеството.",
+    
+    sectionBadge: "НАШАТА РАБОТА В ИЗОБРАЖЕНИЯ",
+    sectionTitleLine1: "Визуално Портфолио",
+    sectionTitleLine2: "",
+    
+    noImagesTitle: "Няма Намерени Изображения",
+    noImagesDescription: "Моля, добавете изображения в галерийната папка",
+    
+    ctaBadge: "ВИЖ ОЩЕ",
+    ctaTitleLine1: "Искате да видите още?",
+    ctaTitleLine2: "Свържете се с нас днес",
+    ctaDescription: "Интересувате ли се да видите нашите проекти на живо или да обсъдите потенциални сътрудничества? Свържете се с нашия екип за персонализирани консултации.",
+    ctaButton: "Свържете се с нас",
+    
+    // Modal content
+    imageOf: "Изображение",
+    of: "от",
+    download: "Изтегли",
+    
+    // Image alt texts
+    imageAltPrefix: "VARMET Галерия Изображение",
+  }
+};
+
+// Create image array with bilingual alt texts
+const createGalleryImages = (language: string) => {
+  const t = galleryContent[language as keyof typeof galleryContent];
+  return [
+    { id: 1, src: gallery1, alt: `${t.imageAltPrefix} 1` },
+    { id: 2, src: gallery2, alt: `${t.imageAltPrefix} 2` },
+    { id: 3, src: gallery3, alt: `${t.imageAltPrefix} 3` },
+    { id: 4, src: gallery4, alt: `${t.imageAltPrefix} 4` },
+    { id: 5, src: gallery5, alt: `${t.imageAltPrefix} 5` },
+    { id: 6, src: gallery6, alt: `${t.imageAltPrefix} 6` },
+    { id: 7, src: gallery7, alt: `${t.imageAltPrefix} 7` },
+    { id: 8, src: gallery8, alt: `${t.imageAltPrefix} 8` },
+    { id: 9, src: gallery9, alt: `${t.imageAltPrefix} 9` },
+    { id: 10, src: gallery10, alt: `${t.imageAltPrefix} 10` },
+    { id: 11, src: gallery11, alt: `${t.imageAltPrefix} 11` },
+    { id: 12, src: gallery12, alt: `${t.imageAltPrefix} 12` },
+    { id: 13, src: gallery13, alt: `${t.imageAltPrefix} 13` },
+    { id: 14, src: gallery14, alt: `${t.imageAltPrefix} 14` },
+    { id: 15, src: gallery15, alt: `${t.imageAltPrefix} 15` },
+    { id: 16, src: gallery16, alt: `${t.imageAltPrefix} 16` },
+    { id: 17, src: gallery17, alt: `${t.imageAltPrefix} 17` },
+    { id: 18, src: gallery18, alt: `${t.imageAltPrefix} 18` },
+    { id: 19, src: gallery19, alt: `${t.imageAltPrefix} 19` },
+    { id: 20, src: gallery20, alt: `${t.imageAltPrefix} 20` },
+  ];
+};
+
 export default function GalleryPage() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [language, setLanguage] = useState("en");
   const [images, setImages] = useState<Array<{ id: number; src: any; alt: string }>>([]);
   const [selectedImage, setSelectedImage] = useState<{ id: number; src: any; alt: string } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    // Create image array with all 20 imported images
-    const galleryImages = [
-      { id: 1, src: gallery1, alt: "Gallery Image 1" },
-      { id: 2, src: gallery2, alt: "Gallery Image 2" },
-      { id: 3, src: gallery3, alt: "Gallery Image 3" },
-      { id: 4, src: gallery4, alt: "Gallery Image 4" },
-      { id: 5, src: gallery5, alt: "Gallery Image 5" },
-      { id: 6, src: gallery6, alt: "Gallery Image 6" },
-      { id: 7, src: gallery7, alt: "Gallery Image 7" },
-      { id: 8, src: gallery8, alt: "Gallery Image 8" },
-      { id: 9, src: gallery9, alt: "Gallery Image 9" },
-      { id: 10, src: gallery10, alt: "Gallery Image 10" },
-      { id: 11, src: gallery11, alt: "Gallery Image 11" },
-      { id: 12, src: gallery12, alt: "Gallery Image 12" },
-      { id: 13, src: gallery13, alt: "Gallery Image 13" },
-      { id: 14, src: gallery14, alt: "Gallery Image 14" },
-      { id: 15, src: gallery15, alt: "Gallery Image 15" },
-      { id: 16, src: gallery16, alt: "Gallery Image 16" },
-      { id: 17, src: gallery17, alt: "Gallery Image 17" },
-      { id: 18, src: gallery18, alt: "Gallery Image 18" },
-      { id: 19, src: gallery19, alt: "Gallery Image 19" },
-      { id: 20, src: gallery20, alt: "Gallery Image 20" },
-    ];
+    // Load saved language from localStorage
+    const savedLang = localStorage.getItem("varmet-language") || "en";
+    setLanguage(savedLang);
     
+    // Create images with correct language
+    const galleryImages = createGalleryImages(savedLang);
     setImages(galleryImages);
     setIsLoaded(true);
   }, []);
+
+  useEffect(() => {
+    // Listen for language changes from the LanguageSwitcher
+    const handleLanguageChange = (event: CustomEvent) => {
+      const newLang = event.detail.lang;
+      setLanguage(newLang);
+      
+      // Update images with new language
+      const galleryImages = createGalleryImages(newLang);
+      setImages(galleryImages);
+    };
+
+    window.addEventListener("language-changed", handleLanguageChange as EventListener);
+    
+    return () => {
+      window.removeEventListener("language-changed", handleLanguageChange as EventListener);
+    };
+  }, []);
+
+  const t = galleryContent[language as keyof typeof galleryContent];
 
   const openModal = useCallback((image: typeof images[0], index: number) => {
     setSelectedImage(image);
@@ -153,18 +239,17 @@ export default function GalleryPage() {
           <div className={`text-center max-w-4xl mx-auto transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-white to-gray-50 border border-gray-200/80 shadow-sm backdrop-blur-sm mb-10">
               <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full animate-pulse" />
-              <span className="text-sm font-semibold tracking-wider text-gray-700">VISUAL SHOWCASE</span>
+              <span className="text-sm font-semibold tracking-wider text-gray-700">{t.badge}</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8">
               <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 bg-clip-text text-transparent">
-                Gallery
+                {t.title}
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-12 font-light">
-              Explore our work through a visual journey of industrial solutions, sustainable practices, 
-              and successful projects that define our commitment to excellence.
+            <p className={`text-xl md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-12 font-light ${language === 'bg' ? 'tracking-wide' : ''}`}>
+              {t.description}
             </p>
           </div>
         </div>
@@ -179,15 +264,15 @@ export default function GalleryPage() {
           <div className={`mb-16 transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
             <div className="flex items-center mb-8 group">
               <div className="w-10 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 mr-4 group-hover:w-16 transition-all duration-300" />
-              <span className="text-sm font-semibold tracking-[0.3em] text-gray-500 uppercase">
-                OUR WORK IN IMAGES
+              <span className={`text-sm font-semibold tracking-[0.3em] text-gray-500 uppercase ${language === 'bg' ? 'tracking-wide' : ''}`}>
+                {t.sectionBadge}
               </span>
             </div>
             
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-              Visual Portfolio
+              {t.sectionTitleLine1}
               <span className="block text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text">
-                Of Excellence
+                {t.sectionTitleLine2}
               </span>
             </h2>
           </div>
@@ -200,8 +285,8 @@ export default function GalleryPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-700 mb-2">No Images Found</h3>
-              <p className="text-gray-500">Please add images to the gallery folder</p>
+              <h3 className="text-xl font-semibold text-gray-700 mb-2">{t.noImagesTitle}</h3>
+              <p className="text-gray-500">{t.noImagesDescription}</p>
             </div>
           ) : (
             <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
@@ -243,14 +328,10 @@ export default function GalleryPage() {
                       </div>
                     </div>
                   </div>
-                  
-                  {/* REMOVED: Image Number Badge */}
                 </div>
               ))}
             </div>
           )}
-
-          
         </div>
       </section>
 
@@ -316,7 +397,7 @@ export default function GalleryPage() {
                 <div>
                   <h3 className="text-xl font-bold text-white">{selectedImage.alt}</h3>
                   <p className="text-sm text-white/70 mt-1">
-                    Image {currentIndex + 1} of {images.length}
+                    {t.imageOf} {currentIndex + 1} {t.of} {images.length}
                   </p>
                 </div>
                 <div className="flex items-center gap-4">
@@ -337,10 +418,10 @@ export default function GalleryPage() {
                         })
                         .catch(err => console.error('Download failed:', err));
                     }}
-                    className="px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 
-                      text-white text-sm font-medium hover:bg-white/20 transition-all duration-300"
+                    className={`px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 
+                      text-white text-sm font-medium hover:bg-white/20 transition-all duration-300 ${language === 'bg' ? 'tracking-wide' : ''}`}
                   >
-                    Download
+                    {t.download}
                   </button>
                 </div>
               </div>
@@ -384,31 +465,32 @@ export default function GalleryPage() {
         <div className={`relative mx-auto max-w-5xl px-6 text-center transition-all duration-700 delay-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <div className="inline-flex items-center gap-3 mb-8">
             <div className="w-12 h-1 bg-gradient-to-r from-blue-400 to-cyan-400" />
-            <span className="text-sm font-semibold tracking-[0.3em] text-blue-200 uppercase">SEE MORE</span>
+            <span className={`text-sm font-semibold tracking-[0.3em] text-blue-200 uppercase ${language === 'bg' ? 'tracking-wide' : ''}`}>
+              {t.ctaBadge}
+            </span>
             <div className="w-12 h-1 bg-gradient-to-r from-cyan-400 to-blue-400" />
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-8">
-            Want to See More?
+            {t.ctaTitleLine1}
             <span className="block text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text">
-              Contact Us Today
+              {t.ctaTitleLine2}
             </span>
           </h2>
           
-          <p className="text-xl text-blue-100 mb-12 max-w-3xl mx-auto font-light">
-            Interested in seeing our projects in person or discussing potential collaborations?
-            Get in touch with our team for personalized consultations.
+          <p className={`text-xl text-blue-100 mb-12 max-w-3xl mx-auto font-light ${language === 'bg' ? 'tracking-wide' : ''}`}>
+            {t.ctaDescription}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a
               href="/contact"
-              className="group relative px-10 py-5 rounded-2xl bg-gradient-to-r from-white to-gray-100 
+              className={`group relative px-10 py-5 rounded-2xl bg-gradient-to-r from-white to-gray-100 
                 text-base font-semibold text-gray-900 transition-all duration-300
                 hover:from-blue-100 hover:to-cyan-100 hover:scale-[1.02] hover:shadow-2xl
-                shadow-lg inline-flex items-center justify-center"
+                shadow-lg inline-flex items-center justify-center ${language === 'bg' ? 'tracking-wide' : ''}`}
             >
-              Contact Us
+              {t.ctaButton}
               <svg className="w-5 h-5 ml-3 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>

@@ -5,12 +5,128 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import aboutImage from "../assets/Images/about.jpg";
 
+// Bilingual content
+const aboutContent = {
+  en: {
+    badge: "WHO WE ARE",
+    title: "VARMET",
+    heroDescription: "Your trusted partner for industrial and environmental solutions. We specialize in delivering high-quality products and services that meet the needs of businesses across various sectors.",
+    cta: "Contact us",
+    
+    missionBadge: "OUR MISSION",
+    missionTitleLine1: "Building",
+    missionTitleLine2: "Sustainable Futures",
+    missionDescription1: "Welcome to VARMET, your trusted partner for industrial and environmental solutions. We deliver high-quality products and services that meet the needs of businesses across various sectors.",
+    missionDescription2: "Our team is dedicated to practical engineering, reliable delivery, and long-term partnerships that drive measurable progress.",
+    
+    approachTitle: "Our Approach",
+    solutionsTitle: "Solutions",
+    solutionsValue: "Industrial",
+    focusTitle: "Focus",
+    focusValue: "Sustainability",
+    qualityTitle: "Quality",
+    qualityValue: "High Standards",
+    supportTitle: "Support",
+    supportValue: "Consulting",
+    
+    projectCta: "Start Your Project With Us",
+    
+    imageCaption1: "Trusted Industrial Partner",
+    imageCaption2: "Quality Solutions Since Inception",
+    
+    expert: "Expert",
+    expertSub: "Team",
+    reliable: "Reliable",
+    reliableSub: "Service",
+    
+    whyChooseTitle: "Why Choose VARMET",
+    whyChoosePoints: [
+      "Tailored solutions for your specific needs",
+      "Commitment to quality and sustainability",
+      "Dedicated customer support"
+    ],
+    
+    ctaBadge: "GET STARTED",
+    ctaTitleLine1: "Partner With Us",
+    ctaTitleLine2: "Today",
+    ctaDescription: "Let's work together to find the right solutions for your industrial and environmental needs.",
+    contactTeam: "Contact Our Team",
+    viewProducts: "View Products"
+  },
+  bg: {
+    badge: "КОИ СМЕ НИЕ",
+    title: "Вармет",
+    heroDescription: "Добре дошли във VARMET, вашият доверен партньор за индустриални и екологични решения. Ние сме специализирани в предоставянето на висококачествени продукти и услуги, които отговарят на нуждите на бизнеса в различни сектори.",
+    cta: "Свържете се с нас",
+    
+    missionBadge: "НАШАТА МИСИЯ",
+    missionTitleLine1: "Изграждаме",
+    missionTitleLine2: "Устойчиво Бъдеще",
+    missionDescription1: "Нашият екип е посветен на предоставянето на авангардни технологии и цялостни услуги, които движат напредъка в различни индустрии.",
+    missionDescription2: "",
+    
+    approachTitle: "Нашият Подход",
+    solutionsTitle: "Решения",
+    solutionsValue: "Индустриални",
+    focusTitle: "Фокус",
+    focusValue: "Устойчивост",
+    qualityTitle: "Качество",
+    qualityValue: "Високи Стандарти",
+    supportTitle: "Поддръжка",
+    supportValue: "Консултации",
+    
+    projectCta: "Започнете Вашия Проект С Нас",
+    
+    imageCaption1: "Доверен Индустриален Партньор",
+    imageCaption2: "Качествени Решения От Основаването",
+    
+    expert: "Експертен",
+    expertSub: "Екип",
+    reliable: "Надежден",
+    reliableSub: "Обслужване",
+    
+    whyChooseTitle: "Защо Да Изберете VARMET",
+    whyChoosePoints: [
+      "Персонализирани решения за вашите специфични нужди",
+      "Ангажимент към качество и устойчивост",
+      "Посветена клиентска поддръжка"
+    ],
+    
+    ctaBadge: "ЗАПОЧНЕТЕ",
+    ctaTitleLine1: "Партнирайте С Нас",
+    ctaTitleLine2: "Днес",
+    ctaDescription: "Нека работим заедно, за да намерим правилните решения за вашите индустриални и екологични нужди.",
+    contactTeam: "Свържете се с нашия екип",
+    viewProducts: "Вижте Продуктите"
+  }
+};
+
 export default function Page() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [language, setLanguage] = useState("en");
 
   useEffect(() => {
     setIsLoaded(true);
+    
+    // Load saved language from localStorage
+    const savedLang = localStorage.getItem("varmet-language") || "en";
+    setLanguage(savedLang);
   }, []);
+
+  useEffect(() => {
+    // Listen for language changes from the LanguageSwitcher
+    const handleLanguageChange = (event: CustomEvent) => {
+      setLanguage(event.detail.lang);
+    };
+
+    window.addEventListener("language-changed", handleLanguageChange as EventListener);
+    
+    return () => {
+      window.removeEventListener("language-changed", handleLanguageChange as EventListener);
+    };
+  }, []);
+
+  const t = aboutContent[language as keyof typeof aboutContent];
 
   return (
     <main className="bg-white">
@@ -27,21 +143,19 @@ export default function Page() {
             {/* Enhanced badge */}
             <div className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-white to-gray-50 border border-gray-200/80 shadow-sm backdrop-blur-sm mb-10">
               <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full animate-pulse" />
-              <span className="text-sm font-semibold tracking-wider text-gray-700">WHO WE ARE</span>
+              <span className="text-sm font-semibold tracking-wider text-gray-700">{t.badge}</span>
             </div>
             
             {/* Enhanced title with gradient */}
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8">
               <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 bg-clip-text text-transparent">
-                VARMET
+                {t.title}
               </span>
             </h1>
             
             {/* Enhanced paragraph */}
-            <p className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-12 font-light">
-              Your trusted partner for industrial and environmental solutions. We specialize in 
-              delivering high-quality products and services that meet the needs of businesses 
-              across various sectors.
+            <p className={`text-xl md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-12 font-light ${language === 'bg' ? 'tracking-wide' : ''}`}>
+              {t.heroDescription}
             </p>
             
             {/* Enhanced button */}
@@ -54,7 +168,7 @@ export default function Page() {
                   hover:from-blue-700 hover:to-cyan-700 hover:scale-[1.02] hover:shadow-2xl
                   shadow-lg"
               >
-                <span>Contact us</span>
+                <span>{t.cta}</span>
                 <svg className="w-5 h-5 ml-3 transform group-hover:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -78,41 +192,42 @@ export default function Page() {
               <div className="flex items-center mb-8 group">
                 <div className="w-10 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 mr-4 group-hover:w-16 transition-all duration-300" />
                 <span className="text-sm font-semibold tracking-[0.3em] text-gray-500 uppercase">
-                  OUR MISSION
+                  {t.missionBadge}
                 </span>
               </div>
               
               {/* Enhanced title */}
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-8">
-                Building
+                {t.missionTitleLine1}
                 <span className="block text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text">
-                  Sustainable Futures
+                  {t.missionTitleLine2}
                 </span>
               </h2>
               
               {/* Enhanced content */}
               <div className="space-y-6 text-gray-600 leading-relaxed">
-                <p className="text-lg font-light">
-                  Welcome to VARMET, your trusted partner for industrial and environmental solutions. 
-                  We deliver high-quality products and services that meet the needs of businesses 
-                  across various sectors.
-                </p>
+                {t.missionDescription1 && (
+                  <p className="text-lg font-light">
+                    {t.missionDescription1}
+                  </p>
+                )}
                 
-                <p className="text-gray-700">
-                  Our team is dedicated to practical engineering, reliable delivery, and long-term 
-                  partnerships that drive measurable progress.
-                </p>
+                {t.missionDescription2 && (
+                  <p className="text-gray-700">
+                    {t.missionDescription2}
+                  </p>
+                )}
               </div>
 
               {/* Enhanced Capabilities Section */}
               <div className="mt-16">
-                <h3 className="text-xl font-bold text-gray-900 mb-8">Our Approach</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-8">{t.approachTitle}</h3>
                 <div className="grid grid-cols-2 gap-5">
                   {[
-                    { title: "Solutions", value: "Industrial", color: "from-blue-500 to-cyan-500", bg: "bg-gradient-to-br from-blue-50 to-cyan-50" },
-                    { title: "Focus", value: "Sustainability", color: "from-emerald-500 to-teal-500", bg: "bg-gradient-to-br from-emerald-50 to-teal-50" },
-                    { title: "Quality", value: "High Standards", color: "from-gray-600 to-gray-700", bg: "bg-gradient-to-br from-gray-50 to-gray-100" },
-                    { title: "Support", value: "Consulting", color: "from-violet-500 to-purple-500", bg: "bg-gradient-to-br from-violet-50 to-purple-50" },
+                    { title: t.solutionsTitle, value: t.solutionsValue, color: "from-blue-500 to-cyan-500", bg: "bg-gradient-to-br from-blue-50 to-cyan-50" },
+                    { title: t.focusTitle, value: t.focusValue, color: "from-emerald-500 to-teal-500", bg: "bg-gradient-to-br from-emerald-50 to-teal-50" },
+                    { title: t.qualityTitle, value: t.qualityValue, color: "from-gray-600 to-gray-700", bg: "bg-gradient-to-br from-gray-50 to-gray-100" },
+                    { title: t.supportTitle, value: t.supportValue, color: "from-violet-500 to-purple-500", bg: "bg-gradient-to-br from-violet-50 to-purple-50" },
                   ].map((item, index) => (
                     <div
                       key={index}
@@ -142,7 +257,7 @@ export default function Page() {
                     hover:from-blue-700 hover:to-cyan-700 hover:scale-[1.02] hover:shadow-2xl
                     shadow-lg"
                 >
-                  Start Your Project With Us
+                  {t.projectCta}
                   <svg className="w-5 h-5 ml-3 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
@@ -172,8 +287,8 @@ export default function Page() {
                   {/* Enhanced Image Caption */}
                   <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/70 to-transparent">
                     <div className="text-white">
-                      <p className="text-sm font-medium opacity-90 mb-2">Trusted Industrial Partner</p>
-                      <p className="text-2xl font-bold">Quality Solutions Since Inception</p>
+                      <p className="text-sm font-medium opacity-90 mb-2">{t.imageCaption1}</p>
+                      <p className="text-2xl font-bold">{t.imageCaption2}</p>
                     </div>
                   </div>
                 </div>
@@ -182,13 +297,13 @@ export default function Page() {
               {/* Enhanced Experience Cards */}
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-7 border border-gray-100 hover:border-blue-200 transition-all duration-300 hover:scale-[1.02] group">
-                  <div className="text-3xl font-bold text-gray-900 mb-2">Expert</div>
-                  <div className="text-sm text-gray-600">Team</div>
+                  <div className="text-3xl font-bold text-gray-900 mb-2">{t.expert}</div>
+                  <div className="text-sm text-gray-600">{t.expertSub}</div>
                   <div className="mt-4 h-1 w-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full group-hover:w-12 transition-all duration-300" />
                 </div>
                 <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-7 border border-gray-100 hover:border-emerald-200 transition-all duration-300 hover:scale-[1.02] group">
-                  <div className="text-3xl font-bold text-gray-900 mb-2">Reliable</div>
-                  <div className="text-sm text-gray-600">Service</div>
+                  <div className="text-3xl font-bold text-gray-900 mb-2">{t.reliable}</div>
+                  <div className="text-sm text-gray-600">{t.reliableSub}</div>
                   <div className="mt-4 h-1 w-8 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full group-hover:w-12 transition-all duration-300" />
                 </div>
               </div>
@@ -197,14 +312,10 @@ export default function Page() {
               <div className="bg-gradient-to-br from-blue-50/50 to-cyan-50/30 rounded-2xl p-8 border border-blue-100/50 backdrop-blur-sm">
                 <h4 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
                   <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full" />
-                  Why Choose VARMET
+                  {t.whyChooseTitle}
                 </h4>
                 <ul className="space-y-5">
-                  {[
-                    "Tailored solutions for your specific needs",
-                    "Commitment to quality and sustainability",
-                    "Dedicated customer support"
-                  ].map((item, index) => (
+                  {t.whyChoosePoints.map((item, index) => (
                     <li key={index} className="flex items-start group">
                       <div className="mt-1 mr-4 flex-shrink-0">
                         <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 flex items-center justify-center group-hover:from-blue-200 group-hover:to-cyan-200 transition-all duration-300">
@@ -228,19 +339,19 @@ export default function Page() {
         <div className={`mx-auto max-w-5xl px-6 text-center transition-all duration-700 delay-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <div className="inline-flex items-center gap-3 mb-8">
             <div className="w-12 h-1 bg-gradient-to-r from-blue-600 to-cyan-500" />
-            <span className="text-sm font-semibold tracking-[0.3em] text-gray-500 uppercase">GET STARTED</span>
+            <span className="text-sm font-semibold tracking-[0.3em] text-gray-500 uppercase">{t.ctaBadge}</span>
             <div className="w-12 h-1 bg-gradient-to-r from-cyan-500 to-blue-600" />
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
-            Partner With Us
+            {t.ctaTitleLine1}
             <span className="block text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text">
-              Today
+              {t.ctaTitleLine2}
             </span>
           </h2>
           
-          <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto font-light">
-            Let's work together to find the right solutions for your industrial and environmental needs.
+          <p className={`text-xl text-gray-600 mb-12 max-w-3xl mx-auto font-light ${language === 'bg' ? 'tracking-wide' : ''}`}>
+            {t.ctaDescription}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -251,7 +362,7 @@ export default function Page() {
                 hover:from-blue-700 hover:to-cyan-700 hover:scale-[1.02] hover:shadow-2xl
                 shadow-lg inline-flex items-center justify-center"
             >
-              Contact Our Team
+              {t.contactTeam}
               <svg className="w-5 h-5 ml-3 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -264,7 +375,7 @@ export default function Page() {
                 hover:border-blue-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50
                 hover:scale-[1.02] hover:shadow-xl inline-flex items-center justify-center"
             >
-              View Products
+              {t.viewProducts}
               <svg className="w-5 h-5 ml-3 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
