@@ -46,7 +46,7 @@ export default function Nav() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -76,107 +76,146 @@ export default function Nav() {
   const t = navContent[language as keyof typeof navContent];
 
   return (
-    <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-lg' : 'bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)]'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      scrolled 
+        ? 'bg-white/95 backdrop-blur-xl shadow-2xl shadow-blue-500/5 border-b border-gray-200/50 py-2' 
+        : 'bg-gradient-to-b from-white via-white to-white/90 backdrop-blur-sm py-3'
+    }`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* LOGO */}
+        <div className="flex items-center justify-between h-14 lg:h-16">
+          {/* LOGO - Enhanced */}
           <Link href="/" className="flex items-center group">
-            <Image
-              src={logo}
-              alt="Varmet"
-              priority
-              className="h-10 w-auto lg:h-12 transition-transform duration-300 group-hover:scale-105"
-            />
+            <div className="relative">
+              {/* Logo glow effect */}
+              <div className={`absolute -inset-3 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-xl transition-opacity duration-500 ${
+                scrolled ? 'opacity-0' : 'opacity-100'
+              }`} />
+              <Image
+                src={logo}
+                alt="Varmet"
+                priority
+                className="relative h-8 w-auto lg:h-10 transition-all duration-300 group-hover:scale-110 group-hover:rotate-2"
+              />
+            </div>
             <div className="hidden lg:block ml-3">
-              <div className="h-0.5 w-6 bg-gradient-to-r from-blue-600 to-emerald-500 mb-1"></div>
-              <div className="h-0.5 w-4 bg-gradient-to-r from-emerald-500 to-blue-600"></div>
+              <div className="flex items-center gap-1">
+                <div className="w-1 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full animate-pulse" />
+                <div className="w-1 h-1 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full animate-pulse delay-75" />
+                <div className="w-1 h-1 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-full animate-pulse delay-150" />
+              </div>
             </div>
           </Link>
 
-          {/* DESKTOP NAV */}
-          <nav className="hidden lg:flex items-center h-full">
-            <div className="flex items-center gap-1">
+          {/* DESKTOP NAV - Enhanced */}
+          <nav className="hidden lg:flex items-center h-full space-x-1">
+            <div className="flex items-center gap-0.5">
               {links.map((l) => {
-                const active = pathname === l.href;
+                const active = pathname === l.href || (l.href !== "/" && pathname.startsWith(l.href));
 
                 return (
                   <Link
                     key={l.href}
                     href={l.href}
-                    className={`group relative px-6 py-2 text-sm font-medium tracking-wide transition-all duration-300
-                      ${
-                        active
-                          ? "text-gray-900"
-                          : "text-gray-600 hover:text-gray-900"
-                      }
+                    className={`group relative px-5 py-2.5 text-sm font-semibold tracking-wide transition-all duration-300
+                      ${active ? "text-gray-900" : "text-gray-600 hover:text-gray-900"}
+                      ${language === 'bg' ? 'tracking-wide' : ''}
                     `}
                   >
-                    <span className="relative z-10">{t[l.key as keyof typeof t]}</span>
+                    <span className="relative z-10 flex items-center gap-2">
+                      {t[l.key as keyof typeof t]}
+                      {active && (
+                        <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full animate-pulse" />
+                      )}
+                    </span>
                     
-                    {/* Active indicator */}
+                    {/* Hover underline effect */}
+                    <div className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 
+                      rounded-full transition-all duration-500 group-hover:w-10 ${
+                        active ? 'w-10' : 'w-0 group-hover:w-10'
+                      }`} />
+                    
+                    {/* Active background effect */}
                     {active && (
-                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-emerald-500 rounded-full" />
+                      <div className="absolute inset-0 -mx-2 rounded-xl bg-gradient-to-r from-blue-50/40 to-cyan-50/40 
+                        border border-blue-100/50 shadow-sm" />
                     )}
                     
-                    {/* Hover effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-50/0 to-emerald-50/0 
-                      group-hover:from-blue-50/30 group-hover:to-emerald-50/30 rounded-lg transition-all duration-300" />
+                    {/* Hover background effect */}
+                    <div className="absolute inset-0 -mx-2 rounded-xl bg-gradient-to-r from-blue-50/0 to-cyan-50/0 
+                      group-hover:from-blue-50/30 group-hover:to-cyan-50/30 transition-all duration-300" />
                   </Link>
                 );
               })}
             </div>
 
-            {/* GET STARTED CTA */}
-            <div className="ml-4 pl-6 border-l border-gray-200 h-8 flex items-center">
+            {/* Divider */}
+            <div className="h-6 w-px bg-gradient-to-b from-gray-300/50 to-transparent mx-2" />
+
+            {/* Language Switcher - Moved before CTA */}
+            <div className="px-3">
+              <LanguageSwitcher />
+            </div>
+
+            {/* GET STARTED CTA - Enhanced */}
+            <div className="relative pl-2">
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <Link
                 href="/contact"
                 className="group relative px-6 py-3 rounded-xl text-sm font-semibold text-white
-                  bg-gradient-to-r from-gray-900 to-gray-800 transition-all duration-300
-                  hover:from-blue-700 hover:to-emerald-600 hover:shadow-xl hover:shadow-blue-500/20
-                  hover:-translate-y-0.5 flex items-center gap-2"
+                  bg-gradient-to-r from-gray-900 to-blue-900 transition-all duration-500
+                  hover:from-blue-700 hover:via-cyan-600 hover:to-blue-700 hover:scale-[1.02] hover:shadow-2xl
+                  shadow-lg flex items-center gap-2 overflow-hidden"
               >
-                <span>{t.getStarted}</span>
-                <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" 
+                {/* Shine effect */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 
+                  bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                
+                {/* Glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-cyan-500/0 to-blue-500/0 
+                  group-hover:from-blue-500/20 group-hover:via-cyan-500/20 group-hover:to-blue-500/20 
+                  transition-all duration-500" />
+                
+                <span className="relative z-10">{t.getStarted}</span>
+                <svg className="relative z-10 w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-300" 
                   fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 to-emerald-500/20 
-                  opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
-            </div>
-
-            {/* Language Switcher - AFTER Get Started button */}
-            <div className="ml-4 h-8 flex items-center border-l border-gray-200 pl-6">
-              <LanguageSwitcher />
             </div>
           </nav>
 
           {/* MOBILE: Menu Button + Language Switcher */}
           <div className="lg:hidden flex items-center gap-3">
             {/* Mobile Language Switcher */}
-            <LanguageSwitcher />
+            <div className="scale-90">
+              <LanguageSwitcher />
+            </div>
             
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Enhanced */}
             <button
               onClick={() => setOpen((v) => !v)}
               aria-label="Toggle menu"
-              className="flex h-10 w-10 items-center justify-center rounded-lg
-                bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+              className="relative flex h-10 w-10 items-center justify-center rounded-xl
+                bg-gradient-to-r from-white to-gray-50 border border-gray-200
+                hover:border-blue-300 hover:shadow-lg transition-all duration-300 group"
             >
-              <span className="relative h-4 w-6">
+              {/* Button glow */}
+              <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              <span className="relative h-5 w-6">
                 <span
-                  className={`absolute left-0 top-0 h-0.5 w-full bg-gray-700 rounded-full transition-all duration-300 ${
-                    open ? "translate-y-[7px] rotate-45 w-full" : ""
+                  className={`absolute left-0 top-0 h-0.5 w-full bg-gradient-to-r from-gray-700 to-gray-600 rounded-full transition-all duration-500 ${
+                    open ? "translate-y-[9px] rotate-45 w-full bg-gradient-to-r from-blue-600 to-cyan-500" : ""
                   }`}
                 />
                 <span
-                  className={`absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 bg-gray-700 rounded-full transition-all duration-300 ${
-                    open ? "opacity-0 translate-x-2" : ""
+                  className={`absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 bg-gradient-to-r from-gray-700 to-gray-600 rounded-full transition-all duration-300 ${
+                    open ? "opacity-0 -translate-x-3" : ""
                   }`}
                 />
                 <span
-                  className={`absolute left-0 bottom-0 h-0.5 w-full bg-gray-700 rounded-full transition-all duration-300 ${
-                    open ? "-translate-y-[7px] -rotate-45 w-full" : ""
+                  className={`absolute left-0 bottom-0 h-0.5 w-4 bg-gradient-to-r from-gray-700 to-gray-600 rounded-full transition-all duration-500 ${
+                    open ? "-translate-y-[9px] -rotate-45 w-full bg-gradient-to-r from-blue-600 to-cyan-500" : ""
                   }`}
                 />
               </span>
@@ -185,67 +224,97 @@ export default function Nav() {
         </div>
       </div>
 
-      {/* MOBILE MENU */}
+      {/* MOBILE MENU - Enhanced */}
       <div
-        className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${
+        className={`lg:hidden overflow-hidden transition-all duration-700 ease-in-out ${
           open 
-            ? "max-h-[500px] opacity-100" 
+            ? "max-h-[600px] opacity-100 pt-4" 
             : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-4 sm:px-6 pb-6 pt-2 border-t border-gray-100 bg-gradient-to-b from-white to-gray-50/50">
-          <nav className="flex flex-col gap-1">
+        <div className="px-4 sm:px-6 pb-8 pt-2 border-t border-gray-200/50 bg-gradient-to-b from-white/95 via-white to-gray-50/50 backdrop-blur-xl">
+          {/* Mobile menu decoration */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full" />
+          
+          <nav className="flex flex-col gap-1.5 mt-4">
             {links.map((l) => {
-              const active = pathname === l.href;
+              const active = pathname === l.href || (l.href !== "/" && pathname.startsWith(l.href));
 
               return (
                 <Link
                   key={l.href}
                   href={l.href}
-                  className={`group relative rounded-xl px-5 py-3.5 text-base font-medium transition-all duration-300
+                  className={`group relative rounded-2xl px-5 py-4 text-base font-semibold transition-all duration-500
                     flex items-center justify-between ${language === 'bg' ? 'tracking-wide' : ''}
                     ${
                       active
-                        ? "bg-gradient-to-r from-blue-50 to-emerald-50 text-gray-900 border border-blue-100"
-                        : "text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                        ? "bg-gradient-to-r from-blue-50/80 to-cyan-50/80 text-gray-900 border border-blue-200/50 shadow-sm"
+                        : "text-gray-700 hover:text-gray-900 hover:bg-gradient-to-r hover:from-gray-50/50 hover:to-gray-50/30"
                     }
                   `}
                 >
-                  <span>{t[l.key as keyof typeof t]}</span>
-                  {active && (
-                    <div className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-blue-600 to-emerald-500"></div>
-                  )}
+                  <div className="flex items-center gap-3">
+                    {/* Active indicator */}
+                    {active && (
+                      <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 animate-pulse" />
+                    )}
+                    <span>{t[l.key as keyof typeof t]}</span>
+                  </div>
+                  
+                  {/* Arrow indicator */}
+                  <svg className={`w-5 h-5 transition-all duration-500 ${
+                    active 
+                      ? "text-blue-600 transform translate-x-1" 
+                      : "text-gray-400 group-hover:text-gray-600 transform group-hover:translate-x-1"
+                  }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                  
+                  {/* Hover effect */}
                   {!active && (
-                    <svg className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transform group-hover:translate-x-1 
-                      transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 to-cyan-500/0 
+                      group-hover:from-blue-500/5 group-hover:to-cyan-500/5 transition-all duration-300" />
                   )}
                 </Link>
               );
             })}
 
-            {/* MOBILE CTA */}
-            <div className="mt-4 pt-4 border-t border-gray-100">
+            {/* MOBILE CTA SECTION - Enhanced */}
+            <div className="mt-6 pt-6 border-t border-gray-200/50">
+              {/* Contact info */}
+              <div className="mb-4 text-center text-sm text-gray-600 bg-gradient-to-r from-blue-50/50 to-cyan-50/50 
+                rounded-xl px-4 py-3 border border-gray-200/30">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span>{t.available}</span>
+                </div>
+                <a href="tel:+359890998827" className="text-base font-semibold text-gray-900 hover:text-blue-600 transition-colors">
+                  +359 890 99 88 27
+                </a>
+              </div>
+              
+              {/* CTA Button */}
               <Link
                 href="/contact"
-                className="group block rounded-xl bg-gradient-to-r from-gray-900 to-gray-800 px-5 py-4 
-                  text-center text-base font-semibold text-white transition-all duration-300
-                  hover:from-blue-700 hover:to-emerald-600 hover:shadow-lg active:scale-[0.98]"
+                className="group block rounded-2xl bg-gradient-to-r from-gray-900 to-blue-900 px-6 py-4 
+                  text-center text-base font-semibold text-white transition-all duration-500
+                  hover:from-blue-700 hover:via-cyan-600 hover:to-blue-700 hover:shadow-2xl active:scale-[0.98]
+                  shadow-lg overflow-hidden"
+                onClick={() => setOpen(false)}
               >
-                <div className="flex items-center justify-center gap-2">
-                  <span>{t.getStarted}</span>
-                  <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" 
+                {/* Button effects */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-cyan-500/0 to-blue-500/0 
+                  group-hover:from-blue-500/20 group-hover:via-cyan-500/20 group-hover:to-blue-500/20 
+                  transition-all duration-500" />
+                
+                <div className="flex items-center justify-center gap-3">
+                  <span className="relative z-10">{t.getStarted}</span>
+                  <svg className="relative z-10 w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" 
                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </div>
               </Link>
-              
-              {/* Contact info */}
-              <div className="mt-4 text-center text-sm text-gray-500">
-                {t.available}
-              </div>
             </div>
           </nav>
         </div>
