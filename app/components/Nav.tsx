@@ -224,19 +224,16 @@ export default function Nav() {
         </div>
       </div>
 
-      {/* MOBILE MENU - Enhanced */}
+      {/* MOBILE MENU - Fixed */}
 <div
-  className={`lg:hidden overflow-hidden transition-all duration-700 ease-in-out ${
+  className={`lg:hidden overflow-hidden transition-all duration-300 ${
     open 
-      ? "max-h-[700px] opacity-100 py-4"  // Added py-4 for top padding
+      ? "max-h-[700px] opacity-100 py-4"  
       : "max-h-0 opacity-0"
   }`}
 >
-  <div className="px-4 sm:px-6 pb-8 pt-6 border-t border-gray-200/50 bg-gradient-to-b from-white/95 via-white to-gray-50/50 backdrop-blur-xl">
-    {/* Mobile menu decoration */}
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full" />
-    
-    <nav className="flex flex-col gap-2.5 mt-6"> {/* Increased gap from 1.5 to 2.5 */}
+  <div className="px-4 sm:px-6 pb-8 pt-6 bg-white border-t border-gray-200">
+    <nav className="flex flex-col gap-3">
       {links.map((l) => {
         const active = pathname === l.href || (l.href !== "/" && pathname.startsWith(l.href));
 
@@ -244,55 +241,44 @@ export default function Nav() {
           <Link
             key={l.href}
             href={l.href}
-            onClick={() => setOpen(false)} // Added to close menu on click
-            className={`group relative rounded-2xl px-6 py-5 text-base font-semibold transition-all duration-500
+            className={`rounded-xl px-5 py-4 text-base font-semibold
               flex items-center justify-between ${language === 'bg' ? 'tracking-wide' : ''}
               ${
                 active
-                  ? "bg-gradient-to-r from-blue-50/80 to-cyan-50/80 text-gray-900 border border-blue-200/50 shadow-sm"
-                  : "text-gray-700 hover:text-gray-900 hover:bg-gradient-to-r hover:from-gray-50/50 hover:to-gray-50/30"
+                  ? "bg-blue-50 text-blue-700 border border-blue-200"
+                  : "text-gray-800 hover:bg-gray-50"
               }
-              min-h-[3.5rem] /* Added minimum height for better touch */
+              active:bg-blue-100 transition-colors duration-200
             `}
+            onClick={() => setOpen(false)}
           >
             <div className="flex items-center gap-3">
-              {/* Active indicator */}
               {active && (
-                <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-blue-600" />
               )}
               <span>{t[l.key as keyof typeof t]}</span>
             </div>
             
-            {/* Arrow indicator */}
-            <svg className={`w-5 h-5 transition-all duration-500 ${
-              active 
-                ? "text-blue-600 transform translate-x-1" 
-                : "text-gray-400 group-hover:text-gray-600 transform group-hover:translate-x-1"
+            <svg className={`w-5 h-5 ${
+              active ? "text-blue-600" : "text-gray-400"
             }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-            
-            {/* Hover effect */}
-            {!active && (
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 to-cyan-500/0 
-                group-hover:from-blue-500/5 group-hover:to-cyan-500/5 transition-all duration-300" />
-            )}
           </Link>
         );
       })}
 
-      {/* MOBILE CTA SECTION - Enhanced */}
-      <div className="mt-8 pt-8 border-t border-gray-200/50"> {/* Increased mt and pt */}
+      {/* MOBILE CTA SECTION */}
+      <div className="mt-8 pt-8 border-t border-gray-200">
         {/* Contact info */}
-        <div className="mb-6 text-center text-sm text-gray-600 bg-gradient-to-r from-blue-50/50 to-cyan-50/50 
-          rounded-xl px-5 py-4 border border-gray-200/30"> {/* Increased padding */}
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-sm">{t.available}</span>
+        <div className="mb-6 text-center bg-blue-50 rounded-xl px-4 py-4 border border-blue-100">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <div className="w-2 h-2 bg-green-500 rounded-full" />
+            <span className="text-sm font-medium text-gray-700">{t.available}</span>
           </div>
           <a 
             href="tel:+359890998827" 
-            className="text-base font-semibold text-gray-900 hover:text-blue-600 transition-colors block py-1"
+            className="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors block py-1"
           >
             +359 890 99 88 27
           </a>
@@ -301,20 +287,14 @@ export default function Nav() {
         {/* CTA Button */}
         <Link
           href="/contact"
-          className="group block rounded-2xl bg-gradient-to-r from-gray-900 to-blue-900 px-6 py-5 
-            text-center text-base font-semibold text-white transition-all duration-500
-            hover:from-blue-700 hover:via-cyan-600 hover:to-blue-700 hover:shadow-2xl active:scale-[0.98]
-            shadow-lg overflow-hidden min-h-[3.5rem] flex items-center justify-center" // Added min-height and flex centering
+          className="block rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-4 
+            text-center text-base font-semibold text-white hover:from-blue-700 hover:to-cyan-700
+            active:scale-[0.98] transition-all duration-200 shadow-md"
           onClick={() => setOpen(false)}
         >
-          {/* Button effects */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-cyan-500/0 to-blue-500/0 
-            group-hover:from-blue-500/20 group-hover:via-cyan-500/20 group-hover:to-blue-500/20 
-            transition-all duration-500" />
-          
-          <div className="flex items-center justify-center gap-3 relative z-10">
+          <div className="flex items-center justify-center gap-3">
             <span>{t.getStarted}</span>
-            <svg className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" 
+            <svg className="w-5 h-5" 
               fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
