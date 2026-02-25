@@ -119,10 +119,7 @@ export default function Nav() {
               />
             </div>
 
-            <div className="hidden lg:flex flex-col leading-none">
-              <span className="text-sm font-bold tracking-tight text-gray-900">VARMET</span>
-              <span className="text-xs text-gray-500">{language === "bg" ? "Индустриални решения" : "Industrial solutions"}</span>
-            </div>
+            
           </Link>
 
           {/* DESKTOP */}
