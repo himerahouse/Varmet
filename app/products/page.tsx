@@ -1,18 +1,113 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
+// ✅ COVER images (one per product tab) — keep your existing imports
 import metalBarrelsImg from "../assets/Images/metal-barrels.jpg";
 import ureaImg from "../assets/Images/urea.jpg";
 import fuelsImg from "../assets/Images/fuels.jpg";
 import wasteImg from "../assets/Images/waste.jpg";
 import palletsImg from "../assets/Images/pallets.jpg";
 
+// ✅ PRODUCT GALLERIES (multiple images per product)
+// ✅ Names below match EXACTLY your folder screenshot (including spaces/case)
+
+// Urea / UAN
+import ureaCover from "../assets/Images/Торове Урея.jpg";
+import uanAdblueCover from "../assets/Images/UAN и AdBlue.jpg";
+
+// Alt fuels
+import altFuelsCover from "../assets/Images/Алтернативни горива.jpg";
+import altFuels1 from "../assets/Images/Алтернативни горива 1.jpg";
+import altFuels2 from "../assets/Images/Алтернативни горива 2.jpg";
+import altFuels3 from "../assets/Images/Алтернативни горива 3.jpg";
+import altFuels4 from "../assets/Images/Алтернативни горива 4.jpg";
+import altFuels5 from "../assets/Images/Алтернативни горива 5.jpg";
+import altFuels6 from "../assets/Images/Алтернативни горива 6.jpg";
+import altFuels7 from "../assets/Images/Алтернативни горива 7.jpg";
+import altFuels8 from "../assets/Images/Алтернативни горива 8.jpg";
+
+// Drums (✅ exact file names from screenshot)
+import barrelMain from "../assets/Images/Ваарел.jpg";
+import barrel4 from "../assets/Images/Варел 4.jpg";
+import barrel5 from "../assets/Images/Варел 5.jpg";
+import barrels from "../assets/Images/Варели.jpg";
+import barrels1 from "../assets/Images/Варели 1.jpg";
+import barrelsCover from "../assets/Images/Варели заглавна снимка.jpg";
+
+// Pallets
+import palletsCoverBg from "../assets/Images/Палета заглавна снимка.jpg";
+import pallet1 from "../assets/Images/Палета 1.jpg";
+import pallet2 from "../assets/Images/Палета 2.jpg";
+import pallet3 from "../assets/Images/Палета 3.jpg";
+import pallet4 from "../assets/Images/Палета 4.jpg";
+import pallet5 from "../assets/Images/Палета 5.jpg";
+import pallet6 from "../assets/Images/Палета 6.jpg";
+import pallet7 from "../assets/Images/Палета 7.jpg";
+import palletPlant1 from "../assets/Images/Цех Палета 1.jpg";
+import palletPlant3 from "../assets/Images/Цех Палета 3.jpg";
+import palletPlant4 from "../assets/Images/Цех Палета 4.jpg";
+import palletPlant5 from "../assets/Images/Цех Палета 5.jpg";
+
+// Plastic pallets
+import plasticPallet from "../assets/Images/Пластмасово пале.jpg";
+import plasticPallet1 from "../assets/Images/Пластмасово пале 1.jpg";
+import plasticPallet2 from "../assets/Images/Пластмасово пале 2.jpg";
+import plasticPallet3 from "../assets/Images/Пластмасово пале 3.jpg";
+
+// Polymers / Construction (“Строй”) (✅ exact case from screenshot)
+import stroyMain from "../assets/Images/Строй.jpg";
+import stroy1 from "../assets/Images/Строй 1.jpg";
+import stroy2 from "../assets/Images/строй 2.jpg";
+import stroy4 from "../assets/Images/строй 4.jpg";
+import stroy5 from "../assets/Images/строй 5.jpg";
+import stroy6 from "../assets/Images/строй 6.jpg";
+import stroy7 from "../assets/Images/строй 7.jpg";
+import stroy8 from "../assets/Images/строй 8.jpg";
+import stroy9 from "../assets/Images/строй 9.jpg";
+import stroy10 from "../assets/Images/строй 10.jpg";
+import stroy11 from "../assets/Images/строй 11.jpg";
+import stroy12 from "../assets/Images/строй 12.jpg";
+import stroy13 from "../assets/Images/строй 13.jpg";
+
 type Lang = "en" | "bg";
 
-const content = {
+type GalleryItem = {
+  src: StaticImageData;
+  alt: string;
+};
+
+type ProductItem = {
+  id: string;
+  tab: string;
+  title: string;
+  subtitle: string;
+  image: StaticImageData; // cover image for the tab
+  description: string;
+  bullets: string[];
+  cta: string;
+  href: string;
+  gallery: GalleryItem[]; // ✅ multiple images per product
+};
+
+const content: Record<
+  Lang,
+  {
+    badge: string;
+    title: string;
+    subtitle: string;
+    cta: string;
+    phoneLabel: string;
+    phone: string;
+    listTitle: string;
+    detailsTitle: string;
+    galleryTitle: string;
+    galleryHint: string;
+    items: ProductItem[];
+  }
+> = {
   en: {
     badge: "PRODUCTS & SERVICES",
     title: "Products",
@@ -22,6 +117,8 @@ const content = {
     phone: "+359 890 99 88 27",
     listTitle: "All products",
     detailsTitle: "Details",
+    galleryTitle: "Images",
+    galleryHint: "Relevant photos for this category",
     items: [
       {
         id: "drums",
@@ -40,6 +137,14 @@ const content = {
         ],
         cta: "View Steel Drums",
         href: "/steelDrums",
+        gallery: [
+          { src: barrelsCover, alt: "Steel drums cover" },
+          { src: barrelMain, alt: "Steel drum" },
+          { src: barrel4, alt: "Steel drum" },
+          { src: barrel5, alt: "Steel drum" },
+          { src: barrels, alt: "Steel drums" },
+          { src: barrels1, alt: "Steel drums" },
+        ],
       },
       {
         id: "urea",
@@ -58,6 +163,7 @@ const content = {
         ],
         cta: "Request Offer",
         href: "/contact",
+        gallery: [{ src: ureaCover, alt: "Urea" }],
       },
       {
         id: "uan-adblue",
@@ -76,6 +182,7 @@ const content = {
         ],
         cta: "Contact Us",
         href: "/contact",
+        gallery: [{ src: uanAdblueCover, alt: "UAN and AdBlue" }],
       },
       {
         id: "polymers",
@@ -92,6 +199,21 @@ const content = {
         ],
         cta: "Ask for Details",
         href: "/contact",
+        gallery: [
+          { src: stroyMain, alt: "Construction elements" },
+          { src: stroy1, alt: "Construction" },
+          { src: stroy2, alt: "Construction" },
+          { src: stroy4, alt: "Construction" },
+          { src: stroy5, alt: "Construction" },
+          { src: stroy6, alt: "Construction" },
+          { src: stroy7, alt: "Construction" },
+          { src: stroy8, alt: "Construction" },
+          { src: stroy9, alt: "Construction" },
+          { src: stroy10, alt: "Construction" },
+          { src: stroy11, alt: "Construction" },
+          { src: stroy12, alt: "Construction" },
+          { src: stroy13, alt: "Construction" },
+        ],
       },
       {
         id: "alt-fuels",
@@ -109,6 +231,17 @@ const content = {
         ],
         cta: "Get in Touch",
         href: "/contact",
+        gallery: [
+          { src: altFuelsCover, alt: "Alternative fuels" },
+          { src: altFuels1, alt: "Alternative fuels" },
+          { src: altFuels2, alt: "Alternative fuels" },
+          { src: altFuels3, alt: "Alternative fuels" },
+          { src: altFuels4, alt: "Alternative fuels" },
+          { src: altFuels5, alt: "Alternative fuels" },
+          { src: altFuels6, alt: "Alternative fuels" },
+          { src: altFuels7, alt: "Alternative fuels" },
+          { src: altFuels8, alt: "Alternative fuels" },
+        ],
       },
       {
         id: "pallets",
@@ -126,6 +259,24 @@ const content = {
         ],
         cta: "Request Offer",
         href: "/contact",
+        gallery: [
+          { src: palletsCoverBg, alt: "Pallets cover" },
+          { src: pallet1, alt: "Pallet" },
+          { src: pallet2, alt: "Pallet" },
+          { src: pallet3, alt: "Pallet" },
+          { src: pallet4, alt: "Pallet" },
+          { src: pallet5, alt: "Pallet" },
+          { src: pallet6, alt: "Pallet" },
+          { src: pallet7, alt: "Pallet" },
+          { src: plasticPallet, alt: "Plastic pallet" },
+          { src: plasticPallet1, alt: "Plastic pallet" },
+          { src: plasticPallet2, alt: "Plastic pallet" },
+          { src: plasticPallet3, alt: "Plastic pallet" },
+          { src: palletPlant1, alt: "Pallet plant" },
+          { src: palletPlant3, alt: "Pallet plant" },
+          { src: palletPlant4, alt: "Pallet plant" },
+          { src: palletPlant5, alt: "Pallet plant" },
+        ],
       },
     ],
   },
@@ -139,6 +290,8 @@ const content = {
     phone: "+359 890 99 88 27",
     listTitle: "Всички продукти",
     detailsTitle: "Информация",
+    galleryTitle: "Снимки",
+    galleryHint: "Снимки за този раздел",
     items: [
       {
         id: "drums",
@@ -157,6 +310,14 @@ const content = {
         ],
         cta: "Виж метални варели",
         href: "/steelDrums",
+        gallery: [
+          { src: barrelsCover, alt: "Варели заглавна снимка" },
+          { src: barrelMain, alt: "Варел" },
+          { src: barrel4, alt: "Варел" },
+          { src: barrel5, alt: "Варел" },
+          { src: barrels, alt: "Варели" },
+          { src: barrels1, alt: "Варели" },
+        ],
       },
       {
         id: "urea",
@@ -174,6 +335,7 @@ const content = {
         ],
         cta: "Заяви оферта",
         href: "/contact",
+        gallery: [{ src: ureaCover, alt: "Торове Урея" }],
       },
       {
         id: "uan-adblue",
@@ -192,6 +354,7 @@ const content = {
         ],
         cta: "Свържи се",
         href: "/contact",
+        gallery: [{ src: uanAdblueCover, alt: "UAN и AdBlue" }],
       },
       {
         id: "polymers",
@@ -208,6 +371,21 @@ const content = {
         ],
         cta: "Попитай за детайли",
         href: "/contact",
+        gallery: [
+          { src: stroyMain, alt: "Строй" },
+          { src: stroy1, alt: "Строй 1" },
+          { src: stroy2, alt: "Строй 2" },
+          { src: stroy4, alt: "Строй 4" },
+          { src: stroy5, alt: "Строй 5" },
+          { src: stroy6, alt: "Строй 6" },
+          { src: stroy7, alt: "Строй 7" },
+          { src: stroy8, alt: "Строй 8" },
+          { src: stroy9, alt: "Строй 9" },
+          { src: stroy10, alt: "Строй 10" },
+          { src: stroy11, alt: "Строй 11" },
+          { src: stroy12, alt: "Строй 12" },
+          { src: stroy13, alt: "Строй 13" },
+        ],
       },
       {
         id: "alt-fuels",
@@ -225,6 +403,17 @@ const content = {
         ],
         cta: "Свържи се",
         href: "/contact",
+        gallery: [
+          { src: altFuelsCover, alt: "Алтернативни горива" },
+          { src: altFuels1, alt: "Алтернативни горива 1" },
+          { src: altFuels2, alt: "Алтернативни горива 2" },
+          { src: altFuels3, alt: "Алтернативни горива 3" },
+          { src: altFuels4, alt: "Алтернативни горива 4" },
+          { src: altFuels5, alt: "Алтернативни горива 5" },
+          { src: altFuels6, alt: "Алтернативни горива 6" },
+          { src: altFuels7, alt: "Алтернативни горива 7" },
+          { src: altFuels8, alt: "Алтернативни горива 8" },
+        ],
       },
       {
         id: "pallets",
@@ -242,17 +431,32 @@ const content = {
         ],
         cta: "Заяви оферта",
         href: "/contact",
+        gallery: [
+          { src: palletsCoverBg, alt: "Палета заглавна снимка" },
+          { src: pallet1, alt: "Палета 1" },
+          { src: pallet2, alt: "Палета 2" },
+          { src: pallet3, alt: "Палета 3" },
+          { src: pallet4, alt: "Палета 4" },
+          { src: pallet5, alt: "Палета 5" },
+          { src: pallet6, alt: "Палета 6" },
+          { src: pallet7, alt: "Палета 7" },
+          { src: plasticPallet, alt: "Пластмасово пале" },
+          { src: plasticPallet1, alt: "Пластмасово пале 1" },
+          { src: plasticPallet2, alt: "Пластмасово пале 2" },
+          { src: plasticPallet3, alt: "Пластмасово пале 3" },
+          { src: palletPlant1, alt: "Цех Палета 1" },
+          { src: palletPlant3, alt: "Цех Палета 3" },
+          { src: palletPlant4, alt: "Цех Палета 4" },
+          { src: palletPlant5, alt: "Цех Палета 5" },
+        ],
       },
     ],
   },
-} as const;
+};
 
 export default function ProductsPage() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [language, setLanguage] = useState<Lang>("en");
-
-  const t = content[language];
-  const [activeId, setActiveId] = useState<string>(t.items[0].id);
 
   useEffect(() => {
     const savedLang = (localStorage.getItem("varmet-language") as Lang) || "en";
@@ -266,8 +470,13 @@ export default function ProductsPage() {
       setLanguage(event.detail.lang as Lang);
     };
     window.addEventListener("language-changed", handleLanguageChange as EventListener);
-    return () => window.removeEventListener("language-changed", handleLanguageChange as EventListener);
+    return () =>
+      window.removeEventListener("language-changed", handleLanguageChange as EventListener);
   }, []);
+
+  const t = content[language];
+
+  const [activeId, setActiveId] = useState<string>(t.items[0].id);
 
   useEffect(() => {
     const exists = content[language].items.some((x) => x.id === activeId);
@@ -299,7 +508,11 @@ export default function ProductsPage() {
               {t.title}
             </h1>
 
-            <p className={`mt-4 text-base md:text-lg leading-relaxed text-gray-600 ${language === "bg" ? "tracking-wide" : ""}`}>
+            <p
+              className={`mt-4 text-base md:text-lg leading-relaxed text-gray-600 ${
+                language === "bg" ? "tracking-wide" : ""
+              }`}
+            >
               {t.subtitle}
             </p>
 
@@ -310,7 +523,12 @@ export default function ProductsPage() {
               >
                 {t.cta}
                 <svg className="ml-3 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
                 </svg>
               </Link>
 
@@ -337,7 +555,7 @@ export default function ProductsPage() {
             </span>
           </div>
 
-          {/* tabs (segmented control) */}
+          {/* tabs */}
           <div className="rounded-2xl border border-gray-200 bg-white p-2 shadow-sm">
             <div className="flex flex-wrap gap-2">
               {t.items.map((item) => {
@@ -346,12 +564,9 @@ export default function ProductsPage() {
                   <button
                     key={item.id}
                     onClick={() => setActiveId(item.id)}
-                    className={`rounded-xl px-4 py-2 text-sm font-semibold transition
-                      ${
-                        isActive
-                          ? "bg-gray-900 text-white"
-                          : "bg-white text-gray-800 hover:bg-gray-50"
-                      }`}
+                    className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
+                      isActive ? "bg-gray-900 text-white" : "bg-white text-gray-800 hover:bg-gray-50"
+                    }`}
                   >
                     {item.tab}
                   </button>
@@ -362,79 +577,98 @@ export default function ProductsPage() {
 
           {/* details */}
           <div className="mt-8 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-            <div className="grid lg:grid-cols-12">
-              {/* image */}
-              <div className="lg:col-span-5">
-                <div className="relative h-[260px] sm:h-[340px] lg:h-full bg-gray-50">
-                  <Image
-                    src={active.image}
-                    alt={active.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 42vw"
-                    className="object-cover"
-                    priority
-                  />
+            {/* MAIN IMAGE BANNER - IMPROVED QUALITY */}
+            <div className="relative w-full h-[220px] sm:h-[300px] lg:h-[340px] bg-gray-50">
+              <Image
+                src={active.image}
+                alt={active.title}
+                fill
+                priority
+                quality={100}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1200px"
+                className="object-cover object-center"
+              />
+              {/* minimal overlay for contrast if needed */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-transparent" />
+            </div>
+
+            {/* CONTENT */}
+            <div className="p-7 sm:p-9">
+              <div className="flex items-center justify-between gap-4">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900">{active.title}</h2>
+                <span className="text-xs font-semibold text-gray-500">{t.detailsTitle}</span>
+              </div>
+
+              <p className="mt-2 text-sm sm:text-base text-gray-600">{active.subtitle}</p>
+
+              <div className="mt-5 h-px bg-gray-200" />
+
+              <p className={`mt-5 text-sm sm:text-base leading-relaxed text-gray-600 ${language === "bg" ? "tracking-wide" : ""}`}>
+                {active.description}
+              </p>
+
+              <p className="mt-7 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                {language === "bg" ? "Характеристики" : "Key features"}
+              </p>
+
+              <ul className="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-3">
+                {active.bullets.map((b, i) => (
+                  <li key={i} className="flex gap-3 text-sm text-gray-700">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0" />
+                    <span className={language === "bg" ? "tracking-wide" : ""}>{b}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* per-product gallery - IMPROVED QUALITY */}
+              <div className="mt-10">
+                <div className="flex items-center justify-between gap-4">
+                  <p className="text-sm font-semibold text-gray-900">{t.galleryTitle}</p>
+                  <span className="text-xs text-gray-500">{t.galleryHint}</span>
+                </div>
+
+                <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {active.gallery.map((g, idx) => (
+                    <div 
+                      key={idx} 
+                      className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 border border-gray-200 group cursor-pointer hover:shadow-md transition-shadow"
+                    >
+                      <Image
+                        src={g.src}
+                        alt={g.alt}
+                        fill
+                        quality={95}
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 280px"
+                        className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* content */}
-              <div className="lg:col-span-7 p-7 sm:p-9">
-                <div className="flex items-center justify-between gap-4">
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
-                    {active.title}
-                  </h2>
-                  <span className="text-xs font-semibold text-gray-500">
-                    {t.detailsTitle}
-                  </span>
-                </div>
+              <div className="mt-10 flex flex-col sm:flex-row gap-3">
+                <Link
+                  href={active.href}
+                  className="inline-flex items-center justify-center rounded-xl bg-gray-900 px-6 py-3.5 text-sm font-semibold text-white hover:bg-gray-800 transition"
+                >
+                  {active.cta}
+                  <svg className="ml-3 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
 
-                <p className="mt-2 text-sm sm:text-base text-gray-600">
-                  {active.subtitle}
-                </p>
-
-                <div className="mt-5 h-px bg-gray-200" />
-
-                <p className={`mt-5 text-sm sm:text-base leading-relaxed text-gray-600 ${language === "bg" ? "tracking-wide" : ""}`}>
-                  {active.description}
-                </p>
-
-                <p className="mt-7 text-xs font-semibold uppercase tracking-wider text-gray-500">
-                  {language === "bg" ? "Характеристики" : "Key features"}
-                </p>
-
-                <ul className="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-3">
-                  {active.bullets.map((b, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-gray-700">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0" />
-                      <span className={language === "bg" ? "tracking-wide" : ""}>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                  <Link
-                    href={active.href}
-                    className="inline-flex items-center justify-center rounded-xl bg-gray-900 px-6 py-3.5 text-sm font-semibold text-white hover:bg-gray-800 transition"
-                  >
-                    {active.cta}
-                    <svg className="ml-3 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-
-                  <a
-                    href="tel:+359890998827"
-                    className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-3.5 text-sm font-semibold text-gray-900 hover:border-gray-300 hover:bg-gray-50 transition"
-                  >
-                    <span className="text-gray-500 mr-2">{t.phoneLabel}</span>
-                    <span className="text-gray-900">{t.phone}</span>
-                  </a>
-                </div>
+                <a
+                  href="tel:+359890998827"
+                  className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-3.5 text-sm font-semibold text-gray-900 hover:border-gray-300 hover:bg-gray-50 transition"
+                >
+                  <span className="text-gray-500 mr-2">{t.phoneLabel}</span>
+                  <span className="text-gray-900">{t.phone}</span>
+                </a>
               </div>
             </div>
           </div>
 
-          {/* bottom CTA (clean) */}
+          {/* bottom CTA */}
           <div className="mt-10 rounded-2xl border border-gray-200 bg-white p-7 sm:p-9 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <h3 className="text-lg sm:text-xl font-bold text-gray-900">
