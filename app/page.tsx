@@ -83,77 +83,77 @@ export default function HomePage() {
     <main className="bg-white mt-10">
       {/* HERO (clean) */}
       <section className="border-b border-gray-200 bg-white">
-        <div
-          className={`mx-auto max-w-7xl px-6 py-14 md:py-20 transition-all duration-700 ${
-            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-          }`}
-        >
-          <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* LEFT */}
-            <div className="lg:col-span-6">
-              {/* badge */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-xs font-semibold tracking-wider text-gray-700">
-                <span className="inline-block h-2 w-2 rounded-full bg-blue-600" />
-                {t.badge}
-              </div>
-
-              {/* headline */}
-              <h1 className="mt-6 text-[clamp(2.2rem,4.2vw,4.1rem)] font-bold tracking-tight text-gray-900 leading-[1.05]">
-                <span className="block">{t.titleLine1}</span>
-                <span className="block text-blue-700">{t.titleLine2}</span>
-              </h1>
-
-              <p className="mt-5 max-w-xl text-base md:text-lg leading-relaxed text-gray-600">
-                {t.description}
-              </p>
-
-              {/* CTAs */}
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center rounded-xl bg-gray-900 px-6 py-3.5 text-sm font-semibold text-white hover:bg-gray-800 transition"
-                >
-                  {t.cta}
-                  <svg
-                    className="ml-3 h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </Link>
-
-                <a
-                  href="tel:+359890998827"
-                  className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-3.5 text-sm font-semibold text-gray-900 hover:border-gray-300 hover:bg-gray-50 transition"
-                >
-                  <Phone className="mr-2 h-4 w-4 text-gray-500" />
-                  {t.phone}
-                </a>
-              </div>
-            </div>
-
-            {/* RIGHT (image only — no extra box UI) */}
-            <div className="lg:col-span-6">
-              <div className="lg:col-span-6">
-  <Image
-    src={heroImage2}
-    alt="VARMET"
-    priority
-    sizes="(max-width: 1024px) 100vw, 50vw"
-    className="w-full h-auto"
-  />
-</div>
-            </div>
-          </div>
+  <div
+    className={`mx-auto max-w-7xl px-6 py-14 md:py-20 transition-all duration-700 ${
+      isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+    }`}
+  >
+    <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      {/* LEFT */}
+      <div className="lg:col-span-6">
+        {/* badge */}
+        <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-xs font-semibold tracking-wider text-gray-700">
+          <span className="inline-block h-2 w-2 rounded-full bg-blue-600" />
+          {t.badge}
         </div>
-      </section>
+
+        {/* headline */}
+        <h1 className="mt-6 text-[clamp(2.2rem,4.2vw,4.1rem)] font-bold tracking-tight text-gray-900 leading-[1.05]">
+          <span className="block">{t.titleLine1}</span>
+          <span className="block">{t.titleLine2}</span> {/* Removed text-blue-700 */}
+        </h1>
+
+        <p className="mt-5 max-w-xl text-base md:text-lg leading-relaxed text-gray-600">
+          {t.description}
+        </p>
+
+        {/* CTAs */}
+        <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-xl bg-gray-900 px-6 py-3.5 text-sm font-semibold text-white hover:bg-gray-800 transition"
+          >
+            {t.cta}
+            <svg
+              className="ml-3 h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </Link>
+
+          <a
+            href="tel:+359890998827"
+            className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-3.5 text-sm font-semibold text-gray-900 hover:border-gray-300 hover:bg-gray-50 transition"
+          >
+            <Phone className="mr-2 h-4 w-4 text-gray-500" />
+            {t.phone}
+          </a>
+        </div>
+      </div>
+
+      {/* RIGHT (image only — no extra box UI) */}
+      <div className="lg:col-span-6">
+        <div className="lg:col-span-6">
+          <Image
+            src={heroImage2}
+            alt="VARMET"
+            priority
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="w-full h-auto"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* GRID (clean cards) */}
       <section className="py-14 md:py-20 bg-white">

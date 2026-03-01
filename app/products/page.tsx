@@ -2,13 +2,13 @@
 
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 
 // ✅ COVER images (one per product tab)
-import metalBarrelsImg from "../assets/Images/Варели 1.jpg";
+import metalBarrelsImg from "../assets/Images/Варели заглавна снимка.jpg";
 import ureaImg from "../assets/Images/Торове Урея.jpg";
 import fuelsImg from "../assets/Images/fuels.jpg";
-import wasteImg from "../assets/Images/строй 11.jpg";
+import wasteImg from "../assets/Images/Строй 1.jpg";
 import palletsImg from "../assets/Images/Палета заглавна снимка.jpg";
 
 // ✅ PRODUCT GALLERIES
@@ -17,6 +17,8 @@ import ureaCover from "../assets/Images/Торове Урея.jpg";
 import uanAdblueCover from "../assets/Images/UAN и AdBlue.jpg";
 // Technical specification for urea
 import ureaTechSpec from "../assets/Images/Техническа Урея спецификация.jpg";
+// New image for urea
+import torove2Img from "../assets/Images/Торове 2.jpg"; // ✅ added
 
 // Alt fuels
 import altFuelsCover from "../assets/Images/Алтернативни горива.jpg";
@@ -165,6 +167,7 @@ const content: Record<
         href: "/contact",
         gallery: [
           { src: ureaCover, alt: "Urea" },
+          { src: torove2Img, alt: "Urea 2" },          // ✅ new image added
           { src: ureaTechSpec, alt: "Technical specification" },
         ],
       },
@@ -340,6 +343,7 @@ const content: Record<
         href: "/contact",
         gallery: [
           { src: ureaCover, alt: "Торове Урея" },
+          { src: torove2Img, alt: "Торове 2" },        // ✅ new image added
           { src: ureaTechSpec, alt: "Техническа спецификация" },
         ],
       },
@@ -466,7 +470,8 @@ export default function ProductsPage() {
 
   // Lightbox state
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxImage, setLightboxImage] = useState<{ src: StaticImageData; alt: string } | null>(null);
+  const [lightboxGallery, setLightboxGallery] = useState<GalleryItem[]>([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     const savedLang = (localStorage.getItem("varmet-language") as Lang) || "en";
@@ -491,7 +496,7 @@ export default function ProductsPage() {
   useEffect(() => {
     const exists = content[language].items.some((x) => x.id === activeId);
     if (!exists) setActiveId(content[language].items[0].id);
-  }, [language]);
+  }, [language, activeId]);
 
   const active = useMemo(
     () => t.items.find((x) => x.id === activeId) || t.items[0],
@@ -502,17 +507,39 @@ export default function ProductsPage() {
   const presentationPdf = language === "bg" ? "/presentationBg.pdf" : "/presentationEn.pdf";
 
   // Lightbox handlers
-  const openLightbox = (src: StaticImageData, alt: string) => {
-    setLightboxImage({ src, alt });
+  const openLightbox = (gallery: GalleryItem[], index: number) => {
+    setLightboxGallery(gallery);
+    setLightboxIndex(index);
     setLightboxOpen(true);
     document.body.style.overflow = "hidden";
   };
 
   const closeLightbox = () => {
     setLightboxOpen(false);
-    setLightboxImage(null);
+    setLightboxGallery([]);
+    setLightboxIndex(0);
     document.body.style.overflow = "auto";
   };
+
+  const goToPrevious = useCallback(() => {
+    setLightboxIndex((prev) => (prev === 0 ? lightboxGallery.length - 1 : prev - 1));
+  }, [lightboxGallery.length]);
+
+  const goToNext = useCallback(() => {
+    setLightboxIndex((prev) => (prev === lightboxGallery.length - 1 ? 0 : prev + 1));
+  }, [lightboxGallery.length]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!lightboxOpen) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") goToPrevious();
+      if (e.key === "ArrowRight") goToNext();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxOpen, goToPrevious, goToNext]);
 
   return (
     <main className="bg-white mt-10">
@@ -671,7 +698,7 @@ export default function ProductsPage() {
                   {active.gallery.map((g, idx) => (
                     <button
                       key={idx}
-                      onClick={() => openLightbox(g.src, g.alt)}
+                      onClick={() => openLightbox(active.gallery, idx)}
                       className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 border border-gray-200 group cursor-pointer hover:shadow-md transition-shadow w-full text-left"
                       aria-label={`View larger image of ${g.alt}`}
                     >
@@ -740,29 +767,63 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      {/* LIGHTBOX MODAL - FIXED */}
-      {lightboxOpen && lightboxImage && (
+      {/* LIGHTBOX MODAL with navigation */}
+      {lightboxOpen && lightboxGallery.length > 0 && (
         <div
           className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
           onClick={closeLightbox}
         >
           <div className="relative w-screen h-screen flex items-center justify-center">
+            {/* Close button */}
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 text-white/80 hover:text-white text-sm font-medium flex items-center gap-1 z-10 bg-black/20 px-3 py-1.5 rounded-full backdrop-blur-sm"
+              className="absolute top-4 right-4 text-white/80 hover:text-white text-sm font-medium flex items-center gap-1 z-20 bg-black/20 px-3 py-1.5 rounded-full backdrop-blur-sm"
             >
               <span>Close</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
+
+            {/* Counter */}
+            <div className="absolute top-4 left-4 text-white/80 text-sm bg-black/20 px-3 py-1.5 rounded-full backdrop-blur-sm z-20">
+              {lightboxIndex + 1} / {lightboxGallery.length}
+            </div>
+
+            {/* Previous button */}
+            {lightboxGallery.length > 1 && (
+              <button
+                onClick={(e) => { e.stopPropagation(); goToPrevious(); }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 text-white/80 hover:text-white bg-black/20 hover:bg-black/40 rounded-full p-3 backdrop-blur-sm transition"
+                aria-label="Previous image"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            )}
+
+            {/* Next button */}
+            {lightboxGallery.length > 1 && (
+              <button
+                onClick={(e) => { e.stopPropagation(); goToNext(); }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 text-white/80 hover:text-white bg-black/20 hover:bg-black/40 rounded-full p-3 backdrop-blur-sm transition"
+                aria-label="Next image"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            )}
+
+            {/* Image */}
             <div
               className="relative w-full h-full max-w-7xl max-h-[90vh] p-4"
               onClick={(e) => e.stopPropagation()}
             >
               <Image
-                src={lightboxImage.src}
-                alt={lightboxImage.alt}
+                src={lightboxGallery[lightboxIndex].src}
+                alt={lightboxGallery[lightboxIndex].alt}
                 fill
                 className="object-contain"
                 quality={100}

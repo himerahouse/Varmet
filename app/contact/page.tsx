@@ -174,7 +174,7 @@ export default function ContactPage() {
 
               <h1 className="mt-6 text-[clamp(2.2rem,4.2vw,4.1rem)] font-bold tracking-tight text-gray-900 leading-[1.05]">
                 <span className="block">{t.titleLine1}</span>
-                <span className="block text-blue-700">{t.titleLine2}</span>
+                <span className="block">{t.titleLine2}</span> {/* Removed text-blue-700 */}
               </h1>
 
               <p className="mt-5 max-w-2xl text-base md:text-lg leading-relaxed text-gray-600">
