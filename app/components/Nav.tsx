@@ -17,7 +17,6 @@ const navContent = {
     products: "Products & Services",
     gallery: "Gallery",
     contact: "Contact",
-    getStarted: "Get Started",
     available: "Available 24/7 for industrial solutions",
   },
   bg: {
@@ -26,7 +25,6 @@ const navContent = {
     products: "Продукти & Услуги",
     gallery: "Галерия",
     contact: "Контакти",
-    getStarted: "Започнете",
     available: "Налични 24/7 за индустриални решения",
   },
 } as const;
@@ -98,7 +96,7 @@ export default function Nav() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-sm" : "bg-white/80 backdrop-blur-sm"
+        scrolled ? "bg-white/95 backdrop-blur-xl shadow-sm" : "bg-white/80 backdrop-blur-sm"
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -118,8 +116,6 @@ export default function Nav() {
                 className="relative h-8 w-auto lg:h-10 transition-transform duration-300 group-hover:scale-105"
               />
             </div>
-
-            
           </Link>
 
           {/* DESKTOP */}
@@ -155,16 +151,6 @@ export default function Nav() {
             <div className="mx-2 h-6 w-px bg-gray-200" />
 
             <LanguageSwitcher />
-
-            <Link
-              href="/contact"
-              className="ml-2 inline-flex items-center justify-center rounded-xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 transition"
-            >
-              {t.getStarted}
-              <svg className="ml-3 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
           </nav>
 
           {/* MOBILE */}
@@ -255,17 +241,6 @@ export default function Nav() {
                     +359 890 99 88 27
                   </a>
                 </div>
-
-                <Link
-                  href="/contact"
-                  className="inline-flex w-full items-center justify-center rounded-xl bg-gray-900 px-6 py-4 text-base font-semibold text-white hover:bg-gray-800 transition"
-                  onClick={() => setOpen(false)}
-                >
-                  {t.getStarted}
-                  <svg className="ml-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
               </div>
             </nav>
           </div>

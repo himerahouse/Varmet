@@ -66,7 +66,7 @@ const steelDrumsContent = {
     feature8Title: "Custom Marking",
     feature8Desc: "Marking and branding (logo/text) available upon request.",
 
-    trademarksLabel: "Registered trademarks:",
+
 
     techBadge: "TECHNICAL DATA",
     techTitle: "Specifications",
@@ -150,7 +150,7 @@ const steelDrumsContent = {
     feature8Title: "Персонализирана маркировка",
     feature8Desc: "Маркировка и брандиране (лого/текст) по заявка.",
 
-    trademarksLabel: "Регистрирани търговски марки:",
+    
 
     techBadge: "ТЕХНИЧЕСКИ ДАННИ",
     techTitle: "Спецификации",
@@ -320,8 +320,7 @@ export default function SteelDrumsPage() {
     { category: t.material7Title, description: t.material7Desc, icon: "✨" },
   ];
 
-  // ✅ Kept exactly as you had it (even though earlier notes mention removal).
-  const trademarks = ["RDL", "Tri-Sure", "4S", "Tab-Seal"];
+ 
 
   return (
     <main className="bg-white mt-10">
@@ -418,9 +417,7 @@ export default function SteelDrumsPage() {
                     </p>
                   </div>
 
-                  <div className="mt-4 text-xs text-gray-500">
-                    {t.trademarksLabel} <span className="text-gray-700 font-semibold">{trademarks.join(" • ")}</span>
-                  </div>
+                  
                 </div>
               </div>
 

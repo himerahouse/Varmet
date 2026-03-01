@@ -24,7 +24,7 @@ const aboutContent = {
     ],
     cta: "Contact us",
     viewProducts: "View Products",
-    phoneLabel: "Call:",
+    phoneLabel: "Call",
     phone: "+359 890 99 88 27",
   },
   bg: {
@@ -41,7 +41,7 @@ const aboutContent = {
     ],
     cta: "Свържи се с нас",
     viewProducts: "Виж продуктите",
-    phoneLabel: "Обади се:",
+    phoneLabel: "Обади се",
     phone: "+359 890 99 88 27",
   },
 } as const;
@@ -69,7 +69,7 @@ export default function Page() {
 
   return (
     <main className="bg-white mt-10">
-      {/* HERO (clean) */}
+      {/* HERO SECTION */}
       <section className="bg-white border-b border-gray-200">
         <div
           className={`mx-auto max-w-7xl px-6 py-14 md:py-20 transition-all duration-700 ${
@@ -96,17 +96,14 @@ export default function Page() {
                 {t.heroDescription}
               </p>
 
-              {/* bullets (clean list) */}
+              {/* bullets */}
               <div className="mt-7 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-semibold text-gray-900">
                     {t.bulletsTitle}
                   </p>
-                  
                 </div>
-
                 <div className="mt-4 h-px bg-gray-200" />
-
                 <ul className="mt-4 space-y-3">
                   {t.bullets.map((b, i) => (
                     <li key={i} className="flex gap-3 text-sm text-gray-700">
@@ -117,7 +114,7 @@ export default function Page() {
                 </ul>
               </div>
 
-              {/* CTAs (clean) */}
+              {/* CTAs */}
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <Link
                   href="/contact"
@@ -139,17 +136,18 @@ export default function Page() {
                   </svg>
                 </Link>
 
+                {/* Phone - now stacked (label above number) */}
                 <a
                   href="tel:+359890998827"
-                  className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-3.5 text-sm font-semibold text-gray-900 hover:border-gray-300 hover:bg-gray-50 transition"
+                  className="flex flex-col items-start justify-center rounded-xl border border-gray-200 bg-white px-6 py-2.5 text-sm hover:border-gray-300 hover:bg-gray-50 transition"
                 >
-                  <span className="text-gray-500 mr-2">{t.phoneLabel}</span>
-                  <span className="text-gray-900">{t.phone}</span>
+                  <span className="text-xs text-gray-500">{t.phoneLabel}</span>
+                  <span className="font-semibold text-gray-900">{t.phone}</span>
                 </a>
               </div>
             </div>
 
-            {/* RIGHT (clean image card) */}
+            {/* RIGHT (image card) */}
             <div className="lg:col-span-6">
               <div className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
                 <div className="px-5 py-4 border-b border-gray-200 flex items-center justify-between">
@@ -160,7 +158,6 @@ export default function Page() {
                     {language === "bg" ? "Ясни условия" : "Clear terms"}
                   </span>
                 </div>
-
                 <div className="p-4">
                   <div className="relative aspect-[4/3] rounded-xl bg-gray-50 overflow-hidden">
                     <Image
@@ -172,7 +169,6 @@ export default function Page() {
                       className="object-cover"
                     />
                   </div>
-
                   <div className="mt-4 flex flex-wrap gap-2">
                     <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700">
                       {language === "bg" ? "Надеждни доставки" : "Reliable delivery"}
@@ -186,14 +182,13 @@ export default function Page() {
                   </div>
                 </div>
               </div>
-
               <div className="mt-6 h-px bg-gray-200" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECOND SECTION (clean) */}
+      {/* SECOND SECTION */}
       <section className="bg-white py-14 md:py-20">
         <div
           className={`mx-auto max-w-7xl px-6 transition-all duration-700 delay-100 ${
@@ -203,13 +198,13 @@ export default function Page() {
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* LEFT IMAGE */}
             <div className="lg:col-span-6 order-2 lg:order-1">
-  <Image
-    src={aboutImage2}
-    alt="VARMET operations"
-    className="w-full h-auto rounded-2xl"
-    priority={false}
-  />
-</div>
+              <Image
+                src={aboutImage2}
+                alt="VARMET operations"
+                className="w-full h-auto rounded-2xl"
+                priority={false}
+              />
+            </div>
 
             {/* RIGHT TEXT */}
             <div className="lg:col-span-6 order-1 lg:order-2">

@@ -96,10 +96,10 @@ export function Footer() {
             <h2 className="text-xl font-semibold text-white tracking-wide">
               VARMET
             </h2>
-            <p className="text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed font-bold text-white">
               {t.tagline}
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm font-bold text-white">
               {t.subtitle}
             </p>
           </div>

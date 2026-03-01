@@ -4,19 +4,19 @@ import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-// ✅ COVER images (one per product tab) — keep your existing imports
-import metalBarrelsImg from "../assets/Images/metal-barrels.jpg";
-import ureaImg from "../assets/Images/urea.jpg";
+// ✅ COVER images (one per product tab)
+import metalBarrelsImg from "../assets/Images/Варели 1.jpg";
+import ureaImg from "../assets/Images/Торове Урея.jpg";
 import fuelsImg from "../assets/Images/fuels.jpg";
-import wasteImg from "../assets/Images/waste.jpg";
-import palletsImg from "../assets/Images/pallets.jpg";
+import wasteImg from "../assets/Images/строй 11.jpg";
+import palletsImg from "../assets/Images/Палета заглавна снимка.jpg";
 
-// ✅ PRODUCT GALLERIES (multiple images per product)
-// ✅ Names below match EXACTLY your folder screenshot (including spaces/case)
-
+// ✅ PRODUCT GALLERIES
 // Urea / UAN
 import ureaCover from "../assets/Images/Торове Урея.jpg";
 import uanAdblueCover from "../assets/Images/UAN и AdBlue.jpg";
+// Technical specification for urea
+import ureaTechSpec from "../assets/Images/Техническа Урея спецификация.jpg";
 
 // Alt fuels
 import altFuelsCover from "../assets/Images/Алтернативни горива.jpg";
@@ -29,7 +29,7 @@ import altFuels6 from "../assets/Images/Алтернативни горива 6.
 import altFuels7 from "../assets/Images/Алтернативни горива 7.jpg";
 import altFuels8 from "../assets/Images/Алтернативни горива 8.jpg";
 
-// Drums (✅ exact file names from screenshot)
+// Drums
 import barrelMain from "../assets/Images/Ваарел.jpg";
 import barrel4 from "../assets/Images/Варел 4.jpg";
 import barrel5 from "../assets/Images/Варел 5.jpg";
@@ -57,7 +57,7 @@ import plasticPallet1 from "../assets/Images/Пластмасово пале 1.j
 import plasticPallet2 from "../assets/Images/Пластмасово пале 2.jpg";
 import plasticPallet3 from "../assets/Images/Пластмасово пале 3.jpg";
 
-// Polymers / Construction (“Строй”) (✅ exact case from screenshot)
+// Polymers / Construction
 import stroyMain from "../assets/Images/Строй.jpg";
 import stroy1 from "../assets/Images/Строй 1.jpg";
 import stroy2 from "../assets/Images/строй 2.jpg";
@@ -84,12 +84,12 @@ type ProductItem = {
   tab: string;
   title: string;
   subtitle: string;
-  image: StaticImageData; // cover image for the tab
+  image: StaticImageData;
   description: string;
   bullets: string[];
   cta: string;
   href: string;
-  gallery: GalleryItem[]; // ✅ multiple images per product
+  gallery: GalleryItem[];
 };
 
 const content: Record<
@@ -163,14 +163,17 @@ const content: Record<
         ],
         cta: "Request Offer",
         href: "/contact",
-        gallery: [{ src: ureaCover, alt: "Urea" }],
+        gallery: [
+          { src: ureaCover, alt: "Urea" },
+          { src: ureaTechSpec, alt: "Technical specification" },
+        ],
       },
       {
         id: "uan-adblue",
         tab: "UAN & AdBlue",
         title: "Production of UAN & AdBlue",
         subtitle: "Controlled quality and flexible packaging",
-        image: fuelsImg,
+        image: uanAdblueCover,
         description:
           "Production of liquid fertilizers UAN and AdBlue. UAN for efficient nutrition in agriculture. AdBlue for emission reduction – for cars and trucks.",
         bullets: [
@@ -186,7 +189,7 @@ const content: Record<
       },
       {
         id: "polymers",
-        tab: "Polymer Elements",
+        tab: "Polymer Construction Elements",
         title: "Production of Polymer Construction Elements",
         subtitle: "LEGO modules, tiles, pavers and more",
         image: wasteImg,
@@ -335,14 +338,17 @@ const content: Record<
         ],
         cta: "Заяви оферта",
         href: "/contact",
-        gallery: [{ src: ureaCover, alt: "Торове Урея" }],
+        gallery: [
+          { src: ureaCover, alt: "Торове Урея" },
+          { src: ureaTechSpec, alt: "Техническа спецификация" },
+        ],
       },
       {
         id: "uan-adblue",
         tab: "UAN и AdBlue",
         title: "Производство на UAN и AdBlue",
         subtitle: "Контролирано качество и гъвкаво пакетиране",
-        image: fuelsImg,
+        image: uanAdblueCover,
         description:
           "Производство на течни торове UAN и AdBlue. UAN за ефективно подхранване в земеделието. AdBlue за намаляване на емисии – за автомобили и камиони.",
         bullets: [
@@ -358,7 +364,7 @@ const content: Record<
       },
       {
         id: "polymers",
-        tab: "Полимерни детайли",
+        tab: "Полимерни строителни детайли",
         title: "Производство на полимерни строителни детайли",
         subtitle: "Лего модули, плочки, павета и още",
         image: wasteImg,
@@ -417,16 +423,16 @@ const content: Record<
       },
       {
         id: "pallets",
-        tab: "Палети",
-        title: "Дървени и пластмасови палети",
+        tab: "Палета",
+        title: "Палета",
         subtitle: "EURO стандарт и нестандартни размери",
         image: palletsImg,
         description:
-          "Производство и доставка на палети. EURO стандарт и нестандартни размери. Пластмасови палети за многократна употреба. Подобрена ефективност при транспорт и складиране.",
+          "Производство и доставка на палета. EURO стандарт и нестандартни размери. Пластмасови палета за многократна употреба. Подобрена ефективност при транспорт и складиране.",
         bullets: [
-          "Производство и доставка на палети",
+          "Производство и доставка на палета",
           "EURO стандарт и нестандартни размери",
-          "Пластмасови палети за многократна употреба",
+          "Пластмасови палета за многократна употреба",
           "Подобрена ефективност при транспорт и складиране",
         ],
         cta: "Заяви оферта",
@@ -458,6 +464,10 @@ export default function ProductsPage() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [language, setLanguage] = useState<Lang>("en");
 
+  // Lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState<{ src: StaticImageData; alt: string } | null>(null);
+
   useEffect(() => {
     const savedLang = (localStorage.getItem("varmet-language") as Lang) || "en";
     setLanguage(savedLang);
@@ -481,7 +491,6 @@ export default function ProductsPage() {
   useEffect(() => {
     const exists = content[language].items.some((x) => x.id === activeId);
     if (!exists) setActiveId(content[language].items[0].id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
 
   const active = useMemo(
@@ -489,9 +498,25 @@ export default function ProductsPage() {
     [t.items, activeId]
   );
 
+  // Determine the correct presentation PDF based on language
+  const presentationPdf = language === "bg" ? "/presentationBg.pdf" : "/presentationEn.pdf";
+
+  // Lightbox handlers
+  const openLightbox = (src: StaticImageData, alt: string) => {
+    setLightboxImage({ src, alt });
+    setLightboxOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    setLightboxImage(null);
+    document.body.style.overflow = "auto";
+  };
+
   return (
     <main className="bg-white mt-10">
-      {/* HERO (clean) */}
+      {/* HERO SECTION */}
       <section className="bg-white border-b border-gray-200">
         <div
           className={`mx-auto max-w-7xl px-6 py-14 md:py-20 transition-all duration-700 ${
@@ -577,8 +602,8 @@ export default function ProductsPage() {
 
           {/* details */}
           <div className="mt-8 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-            {/* MAIN IMAGE BANNER - IMPROVED QUALITY */}
-            <div className="relative w-full h-[220px] sm:h-[300px] lg:h-[340px] bg-gray-50">
+            {/* MAIN IMAGE - not clickable */}
+            <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] bg-gray-100">
               <Image
                 src={active.image}
                 alt={active.title}
@@ -588,8 +613,7 @@ export default function ProductsPage() {
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1200px"
                 className="object-cover object-center"
               />
-              {/* minimal overlay for contrast if needed */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
             </div>
 
             {/* CONTENT */}
@@ -620,7 +644,23 @@ export default function ProductsPage() {
                 ))}
               </ul>
 
-              {/* per-product gallery - IMPROVED QUALITY */}
+              {/* Presentation download for drums */}
+              {active.id === "drums" && (
+                <div className="mt-6">
+                  <a
+                    href={presentationPdf}
+                    download
+                    className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    {language === "bg" ? "Изтегли презентация (PDF)" : "Download presentation (PDF)"}
+                  </a>
+                </div>
+              )}
+
+              {/* per-product gallery - CLICKABLE THUMBNAILS */}
               <div className="mt-10">
                 <div className="flex items-center justify-between gap-4">
                   <p className="text-sm font-semibold text-gray-900">{t.galleryTitle}</p>
@@ -629,9 +669,11 @@ export default function ProductsPage() {
 
                 <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {active.gallery.map((g, idx) => (
-                    <div 
-                      key={idx} 
-                      className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 border border-gray-200 group cursor-pointer hover:shadow-md transition-shadow"
+                    <button
+                      key={idx}
+                      onClick={() => openLightbox(g.src, g.alt)}
+                      className="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 border border-gray-200 group cursor-pointer hover:shadow-md transition-shadow w-full text-left"
+                      aria-label={`View larger image of ${g.alt}`}
                     >
                       <Image
                         src={g.src}
@@ -641,7 +683,7 @@ export default function ProductsPage() {
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 280px"
                         className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                       />
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -697,6 +739,39 @@ export default function ProductsPage() {
           </div>
         </div>
       </section>
+
+      {/* LIGHTBOX MODAL - FIXED */}
+      {lightboxOpen && lightboxImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+          onClick={closeLightbox}
+        >
+          <div className="relative w-screen h-screen flex items-center justify-center">
+            <button
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 text-white/80 hover:text-white text-sm font-medium flex items-center gap-1 z-10 bg-black/20 px-3 py-1.5 rounded-full backdrop-blur-sm"
+            >
+              <span>Close</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div
+              className="relative w-full h-full max-w-7xl max-h-[90vh] p-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={lightboxImage.src}
+                alt={lightboxImage.alt}
+                fill
+                className="object-contain"
+                quality={100}
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
