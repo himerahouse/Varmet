@@ -104,10 +104,10 @@ const galleryContent = {
     categories: {
       uanAdblue: "UAN and AdBlue",
       altGoriva: "Alternative Fuels - RDF and SRF",
-      vareli: "Barrels - Metal Barrels",
+      vareli: "Metal Barrels",
       paleta: "Wooden Pallets",
       plastmasovo: "Plastic Pallets",
-      stroy: "Construction - Building Details",
+      stroy: "Building Details",
       torove: "Fertilizers",
       cehPaleta: "Wooden Pallets Production"
     }
@@ -124,10 +124,10 @@ const galleryContent = {
     categories: {
       uanAdblue: "UAN и AdBlue",
       altGoriva: "Алтернативни горива - RDF и SRF",
-      vareli: "Варели - Метални варели",
+      vareli: "Метални варели",
       paleta: "Дървени палета",
       plastmasovo: "Пластмасови палета",
-      stroy: "Строй - Строителни детайли",
+      stroy: "Строителни детайли",
       torove: "Торове",
       cehPaleta: "Производство дървени палета"
     }
