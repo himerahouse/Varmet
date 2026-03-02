@@ -143,16 +143,43 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // TODO: Replace with real API call
-    setTimeout(() => {
+    try {
+      const res = await fetch("https://formspree.io/f/xlgwyrwl", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        }),
+      });
+
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok) {
+        const msg =
+          data?.errors?.[0]?.message ||
+          (language === "bg"
+            ? "Грешка при изпращане. Опитайте отново."
+            : "Failed to send. Please try again.");
+        throw new Error(msg);
+      }
+
       // eslint-disable-next-line no-console
       console.log("Form submitted:", formData);
 
-      setIsSubmitting(false);
       setFormData({ firstName: "", email: "", phone: "", message: "" });
       setMessageCount(0);
       alert(t.success);
-    }, 1200);
+    } catch (err: any) {
+      alert(err?.message || (language === "bg" ? "Грешка." : "Error."));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -296,11 +323,15 @@ export default function ContactPage() {
                 </span>
               </div>
 
-              <form onSubmit={handleSubmit} className="rounded-2xl border border-gray-200 bg-white p-6 md:p-8 shadow-sm">
+              <form
+                onSubmit={handleSubmit}
+                className="rounded-2xl border border-gray-200 bg-white p-6 md:p-8 shadow-sm"
+              >
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-sm font-semibold text-gray-900">
-                      {t.firstNameLabel} <span className="text-red-500">{t.requiredField}</span>
+                      {t.firstNameLabel}{" "}
+                      <span className="text-red-500">{t.requiredField}</span>
                     </label>
                     <input
                       type="text"
@@ -315,7 +346,8 @@ export default function ContactPage() {
 
                   <div>
                     <label className="block text-sm font-semibold text-gray-900">
-                      {t.emailLabel} <span className="text-red-500">{t.requiredField}</span>
+                      {t.emailLabel}{" "}
+                      <span className="text-red-500">{t.requiredField}</span>
                     </label>
                     <input
                       type="email"
@@ -330,7 +362,9 @@ export default function ContactPage() {
                 </div>
 
                 <div className="mt-5">
-                  <label className="block text-sm font-semibold text-gray-900">{t.phoneLabel}</label>
+                  <label className="block text-sm font-semibold text-gray-900">
+                    {t.phoneLabel}
+                  </label>
                   <input
                     type="tel"
                     name="phone"
@@ -343,7 +377,9 @@ export default function ContactPage() {
 
                 <div className="mt-5">
                   <div className="flex items-center justify-between">
-                    <label className="block text-sm font-semibold text-gray-900">{t.messageLabel}</label>
+                    <label className="block text-sm font-semibold text-gray-900">
+                      {t.messageLabel}
+                    </label>
                     <span className="text-xs text-gray-500">{messageCount} / 180</span>
                   </div>
                   <textarea
@@ -372,7 +408,14 @@ export default function ContactPage() {
                         fill="none"
                         viewBox="0 0 24 24"
                       >
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
                         <path
                           className="opacity-75"
                           fill="currentColor"
@@ -463,8 +506,18 @@ export default function ContactPage() {
                     className="inline-flex w-full items-center justify-center rounded-xl border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:border-gray-300 transition"
                   >
                     {language === "bg" ? "Продукти" : "Products"}
-                    <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    <svg
+                      className="ml-2 h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
                     </svg>
                   </Link>
 
