@@ -223,7 +223,7 @@ export default function Page() {
                 }`}
               >
                 {language === "bg"
-                  ? "Комуникираме срокове и условия upfront. Предлагаме точния продукт и опаковане според нуждите ти, и организираме доставката така, че да няма изненади."
+                  ? "Комуникация, срокове и условия upfront. Предлагаме точния продукт и опаковане според нуждите ти, и организираме доставката така, че да няма изненади."
                   : "We communicate lead times and terms upfront. We recommend the right product and packaging for your use case, and organize delivery so there are no surprises."}
               </p>
 

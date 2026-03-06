@@ -15,6 +15,7 @@ const contactContent = {
     description:
       "Send us a message or reach us directly by phone/email. We respond as soon as possible during working hours.",
     cta: "Back to Home",
+    callButton: "Call us", // new generic call button
 
     // Form
     formBadge: "SEND US A MESSAGE",
@@ -57,6 +58,7 @@ const contactContent = {
     description:
       "Изпратете ни съобщение или се свържете директно по телефон/имейл. Отговаряме възможно най-бързо в работно време.",
     cta: "Начало",
+    callButton: "Обадете се",
 
     // Form
     formBadge: "ИЗПРАТЕТЕ НИ СЪОБЩЕНИЕ",
@@ -134,7 +136,6 @@ export default function ContactPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (name === "message") setMessageCount(value.length);
   };
@@ -169,9 +170,6 @@ export default function ContactPage() {
         throw new Error(msg);
       }
 
-      // eslint-disable-next-line no-console
-      console.log("Form submitted:", formData);
-
       setFormData({ firstName: "", email: "", phone: "", message: "" });
       setMessageCount(0);
       alert(t.success);
@@ -184,7 +182,7 @@ export default function ContactPage() {
 
   return (
     <main className="bg-white mt-10">
-      {/* HERO (clean, like HomePage) */}
+      {/* HERO – clean, without duplicated contact info */}
       <section className="border-b border-gray-200 bg-white">
         <div
           className={`mx-auto max-w-7xl px-6 py-14 md:py-20 transition-all duration-700 ${
@@ -192,8 +190,8 @@ export default function ContactPage() {
           }`}
         >
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-            {/* LEFT */}
-            <div className="lg:col-span-7">
+            {/* LEFT – full width now */}
+            <div className="lg:col-span-12">
               <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-xs font-semibold tracking-wider text-gray-700">
                 <span className="inline-block h-2 w-2 rounded-full bg-blue-600" />
                 {t.badge}
@@ -201,7 +199,7 @@ export default function ContactPage() {
 
               <h1 className="mt-6 text-[clamp(2.2rem,4.2vw,4.1rem)] font-bold tracking-tight text-gray-900 leading-[1.05]">
                 <span className="block">{t.titleLine1}</span>
-                <span className="block">{t.titleLine2}</span> {/* Removed text-blue-700 */}
+                <span className="block">{t.titleLine2}</span>
               </h1>
 
               <p className="mt-5 max-w-2xl text-base md:text-lg leading-relaxed text-gray-600">
@@ -229,88 +227,21 @@ export default function ContactPage() {
                   </svg>
                 </Link>
 
+                {/* Generic call button – no phone number displayed */}
                 <a
                   href="tel:+359890998827"
                   className="inline-flex items-center justify-center rounded-xl bg-gray-900 px-6 py-3.5 text-sm font-semibold text-white hover:bg-gray-800 transition"
                 >
                   <Phone className="mr-2 h-4 w-4" />
-                  {t.phone}
+                  {t.callButton}
                 </a>
               </div>
-            </div>
-
-            {/* RIGHT: quick info card */}
-            <div className="lg:col-span-5">
-              <div className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-                <div className="px-5 py-4 border-b border-gray-200 flex items-center justify-between">
-                  <p className="text-sm font-semibold text-gray-900">
-                    {language === "bg" ? "Данни" : "Details"}
-                  </p>
-                  <span className="text-xs text-gray-500">
-                    {language === "bg" ? "VARMET" : "VARMET"}
-                  </span>
-                </div>
-
-                <div className="p-5 space-y-4">
-                  <a
-                    href="mailto:office@varmet.bg"
-                    className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4 hover:bg-gray-50 transition"
-                  >
-                    <span className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900 text-white">
-                      <Mail className="h-5 w-5" />
-                    </span>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-900">{t.emailTitle}</p>
-                      <p className="mt-1 text-sm text-gray-600">{t.email}</p>
-                    </div>
-                  </a>
-
-                  <a
-                    href="tel:+359890998827"
-                    className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4 hover:bg-gray-50 transition"
-                  >
-                    <span className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900 text-white">
-                      <Phone className="h-5 w-5" />
-                    </span>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-900">{t.phoneTitle}</p>
-                      <p className="mt-1 text-sm text-gray-600">{t.phone}</p>
-                    </div>
-                  </a>
-
-                  <div className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4">
-                    <span className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900 text-white">
-                      <Clock className="h-5 w-5" />
-                    </span>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-900">{t.workingHoursTitle}</p>
-                      <p className="mt-1 text-sm text-gray-600">{t.workingHours}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4">
-                    <span className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900 text-white">
-                      <MapPin className="h-5 w-5" />
-                    </span>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-900">{t.addressTitle}</p>
-                      <p className="mt-1 text-sm text-gray-600">
-                        {t.addressLine1}
-                        <br />
-                        {t.addressLine2}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 h-px bg-gray-200" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* FORM + INFO (simple, clean) */}
+      {/* FORM + INFO (single source of contact details) */}
       <section className="py-14 md:py-20 bg-white">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-14">
@@ -434,7 +365,7 @@ export default function ContactPage() {
               </form>
             </div>
 
-            {/* INFO (secondary column) */}
+            {/* INFO – all contact details appear here only once */}
             <div className="lg:col-span-5">
               <div className="flex items-center mb-6">
                 <div className="w-10 h-1 bg-blue-600 mr-4" />

@@ -26,7 +26,7 @@ export default function RootLayout({
           name="description" 
           content="Varmet provides cutting-edge industrial solutions, high-quality engineering services, and reliable industrial equipment. 24/7 expert support for manufacturing and industrial applications." 
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon2.ico" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Nav />

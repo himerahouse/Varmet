@@ -48,7 +48,6 @@ import plastmasovo from "../assets/Images/Пластмасово пале.jpg";
 // Строй - Строителни детайли
 import stroy1 from "../assets/Images/Строй 1.jpg";
 import stroy2 from "../assets/Images/строй 2.jpg";
-import stroy4Copy from "../assets/Images/строй 4 - Copy.jpg";
 import stroy4 from "../assets/Images/строй 4.jpg";
 import stroy5 from "../assets/Images/строй 5.jpg";
 import stroy6 from "../assets/Images/строй 6.jpg";
@@ -216,7 +215,6 @@ const createGalleryCategories = (language: Lang): Category[] => {
       images: [
         { id: "stroy-1", src: stroy1, alt: "Строй 1", category: "stroy", categoryBg: "Строй" },
         { id: "stroy-2", src: stroy2, alt: "строй 2", category: "stroy", categoryBg: "Строй" },
-        { id: "stroy-3", src: stroy4Copy, alt: "строй 4 - Copy", category: "stroy", categoryBg: "Строй" },
         { id: "stroy-4", src: stroy4, alt: "строй 4", category: "stroy", categoryBg: "Строй" },
         { id: "stroy-5", src: stroy5, alt: "строй 5", category: "stroy", categoryBg: "Строй" },
         { id: "stroy-6", src: stroy6, alt: "строй 6", category: "stroy", categoryBg: "Строй" },
