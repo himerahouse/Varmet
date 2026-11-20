@@ -29,6 +29,9 @@ const footerContent = {
     emailLabel: "Email",
     phoneLabel: "Phone",
     addressLabel: "Address",
+    madeBy: "Website by",
+    madeByName: "Vladislav Uanli",
+    madeByUrl: "https://vladislavuanli.com",
   },
   bg: {
     copyright: "© {year} Varmet. Всички права запазени.",
@@ -56,6 +59,9 @@ const footerContent = {
     emailLabel: "Имейл",
     phoneLabel: "Телефон",
     addressLabel: "Адрес",
+    madeBy: "Изработка:",
+    madeByName: "Владислав Уанли",
+    madeByUrl: "https://vladislavuanli.net",
   },
 };
 
@@ -176,6 +182,16 @@ export function Footer() {
         <div className="container mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-500">
             {t.copyright.replace("{year}", year.toString())}
+            <span className="mx-2">·</span>
+            {t.madeBy}{" "}
+            <a
+              href={t.madeByUrl}
+              target="_blank"
+              rel="noopener"
+              className="hover:text-white transition-colors"
+            >
+              {t.madeByName}
+            </a>
           </p>
 
           <div className="flex gap-6 text-sm">
