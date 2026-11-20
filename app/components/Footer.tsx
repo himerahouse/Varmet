@@ -31,7 +31,7 @@ const footerContent = {
     addressLabel: "Address",
     madeBy: "Website by",
     madeByName: "Vladislav Uanli",
-    madeByUrl: "https://vladislavuanli.com",
+    madeByUrl: "https://vladislavuanli.net",
   },
   bg: {
     copyright: "© {year} Varmet. Всички права запазени.",
